@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <!--               -->
+    <!-- MAQUINA LOCAL -->
+    <!-- BANCO 02      -->
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/pizza?useUnicode=true&amp;characterEncoding=UTF-8</property>
+    <property name="hibernate.connection.username">root</property>
+    <property name="hibernate.connection.password">root</property>
+    <!--                                  -->
+    <!-- Configuração do pool de conexões -->
+    <!--                                  -->
+    <property name="hibernate.c3p0.min_size">5</property>
+    <property name="hibernate.c3p0.max_size">20</property>
+    <property name="hibernate.c3p0.timeout">300</property>
+    <property name="hibernate.c3p0.max_statements">50</property>
+    <property name="hibernate.c3p0.idle_test_period">3000</property>    
+    <property name="show_sql">true</property>
+    <property name="format_sql">true</property>
+    <!--                        -->
+    <!-- Mapeamento das tabelas -->
+    <!--                        -->
+    <property name="hibernate.hbm2ddl.auto">update</property>
+    <property name="hibernate.query.substitutions">true</property>   
+    
+    <mapping class="br.com.pizzaondemand.modelo.UsuarioAndroid"/> 
+    <mapping class="br.com.pizzaondemand.modelo.Pizzaria"/>
+    <mapping class="br.com.pizzaondemand.modelo.Produto"/>
+    <mapping class="br.com.pizzaondemand.modelo.Pedido"/>
+        
+  </session-factory>
+</hibernate-configuration>
