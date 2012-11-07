@@ -66,9 +66,85 @@ public class CadastroController {
         }
     }
 
+    @Post("/atualizarPizzaria/{pizzaria.id}")
+    public void atualizarPizzaria(Pizzaria pizzaria) {
+        System.out.println("\n========== CadastroController - atualizaCadastro ==========\n");
+        try {
+            if(pizzaria != null) {
+                System.out.println("Vou atualizar a pizzaria com email: " + pizzaria.getId());
+                
+                Pizzaria p = pizzariaDAO.obtemPizzariaPorId(pizzaria.getId());
+
+                pizzariaDAO.atualizar(montaPizzariaParaAtualizar(pizzaria, p));
+                
+                result.redirectTo(IndexController.class).index();
+            } else {
+                result.use(Results.http()).body("Erro ao atualizar Pizzaria").sendError(403);
+            }
+        } catch (Exception e) {
+            System.out.println("Erro ao atualizar Pizzaria: " + e.toString());
+        }
+    }
+ 
+    public Pizzaria montaPizzariaParaAtualizar(Pizzaria antiga, Pizzaria nova) {
+        if(antiga.getRazao_social()!=null) {
+            nova.setRazao_social(antiga.getRazao_social());
+        }
+        if(antiga.getNome_fantasia()!=null) {
+            nova.setNome_fantasia(antiga.getNome_fantasia());
+        }
+        if(antiga.getEmail()!=null) {
+            nova.setEmail(antiga.getEmail());
+        }
+        if(antiga.getSenha()!=null) {
+            nova.setSenha(antiga.getSenha());
+        }
+        if(antiga.getCnpj()!=null) {
+            nova.setCnpj(antiga.getCnpj());
+        }
+        if(antiga.getTelefone1()!=null) {
+            nova.setTelefone1(antiga.getTelefone1());
+        }
+        if(antiga.getTelefone2()!=null) {
+            nova.setTelefone2(antiga.getTelefone2());
+        }
+        if(antiga.getTelefone3()!=null) {
+            nova.setTelefone3(antiga.getTelefone3());
+        }
+        if(antiga.getComplemento()!=null) {
+            nova.setComplemento(antiga.getComplemento());
+        }
+        if(antiga.getBairro()!=null) {
+            nova.setBairro(antiga.getBairro());
+        }
+        if(antiga.getCep()!=null) {
+            nova.setCep(antiga.getCep());
+        }
+        if(antiga.getCidade()!=null) {
+            nova.setCidade(antiga.getCidade());
+        }
+        if(antiga.getEstado()!=null) {
+            nova.setEstado(antiga.getEstado());
+        }
+        if(antiga.getLatitude()!=null) {
+            nova.setLatitude(antiga.getLatitude());
+        }
+        if(antiga.getLongitude()!=null) {
+            nova.setLongitude(antiga.getLongitude());
+        }
+        if(antiga.getMensagemPerfil()!=null) {
+            nova.setMensagemPerfil(antiga.getMensagemPerfil());
+        }
+        if(antiga.getImagemPerfil()!=null) {
+            nova.setImagemPerfil(antiga.getImagemPerfil());
+        }
+        
+        return nova;
+    }
+    
     @Get("/editarCadastro")
     public void editarCadastro() {
-       System.out.println("\n========== IndexController - editarCadastro ==========\n");
+       System.out.println("\n========== CadastroController - editarCadastro ==========\n");
        Pizzaria pizzaria = pizzariaDAO.obtemPizzariaPorId(usuarioSession.getUser().getId()); 
        result.include("pizzaria", pizzaria);
     }

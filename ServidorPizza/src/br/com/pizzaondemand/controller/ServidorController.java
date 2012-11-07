@@ -169,20 +169,28 @@ public class ServidorController {
             
             try {
                 
-                ususAndroidDAO.salvar(usuario);
+                if(ususAndroidDAO.verificaIMEI(usuario)) {
+                    System.out.println("Já existe um IMEI cadastrado!!");
+                    
+                    result.use(Results.http()).body("O IMEI utilizado já esta cadastrado.").setStatusCode(403);
+                    
+                } else {
+                    System.out.println("Não existe um IMEI cadastrado.. Programa pode continuar");
+                    result.use(Results.http()).body("O IMEI utilizado não esta cadastrado. Seu cadastro esta sendo realizado...").setStatusCode(200);
+                    ususAndroidDAO.salvar(usuario);
+                    result.use(Results.http()).body("\nCadastro realizado com sucesso.").setStatusCode(200);
+ 
+                    try {
+                        AdministracaoEmail.EnviarEmail("Cadastro - Pizza - On Demand!", montaEmailCadastroUsuario(usuario), usuario.getEmail());
+                        result.use(Results.http()).body("\nFoi enviado um email para " + usuario.getEmail() + " com a confirmação dos seus dados de acesso ao aplicativo.").setStatusCode(200);
+                    } catch (Exception e) {
+                        System.out.println("Erro ao enviar emaill no cadastro do UsuarioAndroid: " + e.toString());
+                    }
                 
+                }
             } catch (HibernateException e) {
                 System.out.println("Deu erro ao salvar o usuario: " + e.toString());
             }
-
-            try {
-                AdministracaoEmail.EnviarEmail("Cadastro - Pizza - On Demand!", montaEmailCadastroUsuario(usuario), usuario.getEmail());
-            } catch (Exception e) {
-                System.out.println("Erro ao enviar emaill no cadastro do UsuarioAndroid: " + e.toString());
-            }
-          
-            result.use(Results.json()).from("mensagem", "Dados salvos com sucesso!").serialize();
-            result.include("mensagem", "Dados salvos com sucesso!");
             
         } catch (Exception e) {
             System.out.println("Erro ao salvar UsuarioAndroid: " + e.toString());

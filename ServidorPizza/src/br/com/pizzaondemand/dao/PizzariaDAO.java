@@ -40,7 +40,7 @@ public class PizzariaDAO {
     }
     
     public void atualizar(Pizzaria pizzaria) {
-        System.out.println("PizzariaDAO - Mensagem que vai ser salva: " + pizzaria.getMensagemPerfil());
+        System.out.println("PizzariaDAO - Vou atualizar o usuario: " + pizzaria.getEmail());
         session.merge(pizzaria);
     }
     

@@ -16,7 +16,7 @@ public class Pizzaria implements java.io.Serializable {
     private String nome_fantasia;
     private String email;
     private String senha;
-    private String cnpf;
+    private String cnpj;
     private String telefone1;
     private String telefone2;
     private String telefone3;
@@ -57,12 +57,12 @@ public class Pizzaria implements java.io.Serializable {
         this.cidade = cidade;
     }
 
-    public String getCnpf() {
-        return cnpf;
+    public String getCnpj() {
+        return cnpj;
     }
 
-    public void setCnpf(String cnpf) {
-        this.cnpf = cnpf;
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
     }
 
     public String getComplemento() {
