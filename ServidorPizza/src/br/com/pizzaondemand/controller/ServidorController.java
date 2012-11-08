@@ -202,11 +202,13 @@ public class ServidorController {
                 }
             } catch (HibernateException e) {
                 System.out.println("Deu erro ao salvar o usuario: " + e.toString());
+                result.use(Results.json()).from("codigo", "5");
                 result.include(5);
             }
             
         } catch (Exception e) {
             System.out.println("Erro ao salvar UsuarioAndroid: " + e.toString());
+            result.use(Results.json()).from("codigo", "6");
         }
 
     }
