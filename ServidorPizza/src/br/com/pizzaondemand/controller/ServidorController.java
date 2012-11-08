@@ -72,6 +72,23 @@ public class ServidorController {
     }
 
     @Public
+    @Path("/servidor/recebePedido/{id}/{status}")
+    public void recebePedido(Long id, int status) {
+        System.out.println("\n ============== ServidorController - reebePedido =============\n");
+        if (id != 0 && status != 0) {
+            String resultado = "Dados recebidos";
+            System.out.println("Recebi o ID: " + id);
+            System.out.println("Com status: " + status);
+            
+            Pedido p = pedidoDAO.obtemPedidoPorId(id);
+            p.setStatus(status);
+            pedidoDAO.atualiza(p);
+            
+            result.use(Results.json()).withoutRoot().from(resultado).serialize();
+        }
+    }
+    
+    @Public
     @Path("/servidor/testeRecebimentoParametros/{id}/")
     public void testeRecebimentoParametros(String data) {
         String recebido = "";
@@ -148,15 +165,6 @@ public class ServidorController {
     }
 
     @Public
-    @Consumes("application/json")
-    @Post("/teste2")
-    public void testeSalvaUsuario(UsuarioAndroid usuario) {
-    	System.out.println("Entrei no meu metodo de teste ===================");
-    	System.out.println("String que chegou: " + usuario.getNome());
-    	result.use(Results.json()).from(usuario).serialize();
-    }
-  
-    @Public
     @Consumes(value={"application/json", "application/x-www-form-urlencoded"})
     @Post("/servidor/salvaUsuario")
     public void salvaUsuarioAndroid(UsuarioAndroid usuario) {
@@ -170,26 +178,31 @@ public class ServidorController {
             try {
                 
                 if(ususAndroidDAO.verificaIMEI(usuario)) {
-                    System.out.println("Já existe um IMEI cadastrado!!");
-                    
-                    result.use(Results.http()).body("O IMEI utilizado já esta cadastrado.").setStatusCode(403);
+                    System.out.println("Já existe um IMEI cadastrado!!");                    
+                    result.use(Results.json()).from("codigo", "1");                    
+//                    result.include(1);
                     
                 } else {
                     System.out.println("Não existe um IMEI cadastrado.. Programa pode continuar");
-                    result.use(Results.http()).body("O IMEI utilizado não esta cadastrado. Seu cadastro esta sendo realizado...").setStatusCode(200);
+//                    result.use(Results.http()).body("O IMEI utilizado não esta cadastrado. Seu cadastro esta sendo realizado...").setStatusCode(200);
                     ususAndroidDAO.salvar(usuario);
-                    result.use(Results.http()).body("\nCadastro realizado com sucesso.").setStatusCode(200);
+                    result.use(Results.json()).from("codigo", "2");                   
+//                    result.include(2);
  
                     try {
                         AdministracaoEmail.EnviarEmail("Cadastro - Pizza - On Demand!", montaEmailCadastroUsuario(usuario), usuario.getEmail());
-                        result.use(Results.http()).body("\nFoi enviado um email para " + usuario.getEmail() + " com a confirmação dos seus dados de acesso ao aplicativo.").setStatusCode(200);
+                        result.use(Results.json()).from("codigo", "3");
+//                        result.include(3);
                     } catch (Exception e) {
                         System.out.println("Erro ao enviar emaill no cadastro do UsuarioAndroid: " + e.toString());
+                        result.use(Results.json()).from("codigo", "4");
+//                        result.include(4);
                     }
                 
                 }
             } catch (HibernateException e) {
                 System.out.println("Deu erro ao salvar o usuario: " + e.toString());
+                result.include(5);
             }
             
         } catch (Exception e) {
@@ -241,7 +254,7 @@ public class ServidorController {
         sb.append("Seja bem vindo a <strong>Pizza - On Demand!</strong>.");
         sb.append("<br />");
         sb.append("<br />");
-        sb.append("Abaixo voc� encontra a confirmação dos seus dados de acesso ao aplicativo:");
+        sb.append("Abaixo você encontra a confirmação dos seus dados de acesso ao aplicativo:");
         sb.append("<br />");
         sb.append("<br />");
         sb.append("<strong>Email:</strong> " + usuario.getEmail());

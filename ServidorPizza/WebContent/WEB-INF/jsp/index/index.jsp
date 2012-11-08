@@ -60,7 +60,7 @@
 
                     </td>
                     <td style="padding-top: 30px; text-align: left;  vertical-align: top;">
-                        <div style="padding-bottom:10px; font-weight: bold; padding-left: 20px; border-bottom: 1px solid #773e3c; width: 90%;">Conteúdo</div>
+                        <jsp:include page="../template/conteudo.jsp" />
                         <div style="padding: 20px;">
                             Seja Bem-Vindo ${usuarioSession.user.nome_fantasia}. No momento o site esta em manutenção. Clique <a href="${pageContext.request.contextPath}/logout"><b>aqui</b></a> para sair.
 

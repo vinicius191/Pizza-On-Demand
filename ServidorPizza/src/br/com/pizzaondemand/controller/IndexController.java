@@ -66,6 +66,7 @@ public class IndexController {
     public void edita() {
         System.out.println("Entrei em edita =========");
         Pizzaria pizzaria = pizzariaDAO.obtemPizzariaPorId(usuarioSession.getUser().getId());
+        System.out.println("A senha que esta sendo enviada para o Edita Cadastro: " + pizzaria.getSenha());
         result.include("pizzaria", pizzaria);
     }
 

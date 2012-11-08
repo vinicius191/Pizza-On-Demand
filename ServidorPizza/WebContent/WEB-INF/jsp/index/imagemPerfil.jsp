@@ -60,7 +60,7 @@
 
                     </td>
                     <td style="padding-top: 30px; text-align: left;  vertical-align: top;">
-                        <div style="padding-bottom:10px; font-weight: bold; padding-left: 20px; border-bottom: 1px solid #773e3c; width: 90%;">Conteúdo</div>
+                        <jsp:include page="../template/conteudo.jsp" />
                         <div style="padding: 20px;">
                             <form id="formAtualizaImagem" action="${pageContext.request.contextPath}/atualizaImagemPerfil/${usuarioSession.user.id}/imagem" method="POST" enctype="multipart/form-data">
                                 <fieldset style="width: 525px;">

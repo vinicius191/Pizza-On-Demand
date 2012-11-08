@@ -30,4 +30,8 @@ public class PedidoDAO {
     public Pedido obtemPedidoPorId(Long id) {
         return (Pedido) session.createQuery("FROM Pedido WHERE id = :id").setParameter("id", id).uniqueResult();
     }
+
+    public void atualiza(Pedido pedido) {
+        session.merge(pedido);
+    }
 }

@@ -63,7 +63,7 @@
 
                     </td>
                     <td style="padding-top: 30px; text-align: left;  vertical-align: top;">
-                        <div style="padding-bottom:10px; font-weight: bold; padding-left: 20px; border-bottom: 1px solid #773e3c; font-size: 16px; width: 90%;">Conteúdo</div>
+                        <jsp:include page="../template/conteudo.jsp" />
                         <div style="padding: 20px;">
                             <form id="formAtualizaCadastro" action="${pageContext.request.contextPath}/atualizarPizzaria/${pizzaria.id}" method="POST">
                                 <table border="0" width="94%" align="left" style="color: #5a0805; font-size: 18px;">
@@ -81,80 +81,80 @@
                                     </tr>
                                     <tr><td colspan="2" style="height: 20px;"></td></tr>	
                                     <tr>
-                                        <td style="font-size: 14px; width: 200px; padding-left: 10px;">Email da Pizzaria: </td>
+                                        <td style="font-size: 14px; width: 200px; padding-left: 3px;">Email da Pizzaria: </td>
                                         <td>
-                                            <input type="text" name="pizzaria.email" value="${pizzaria.email}" id="pizzaria.email" style="width: 40%; height: 20px; border: 1px solid #5a0805; padding-left: 20px;" />
+                                            <input type="text" name="pizzaria.email" value="${pizzaria.email}" id="pizzaria.email" style="width: 40%; height: 20px; border: 1px solid #5a0805; padding-left: 3px;" />
                                             
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="font-size: 14px; width: 200px; padding-left: 10px;">Senha: </td>
+                                        <td style="font-size: 14px; width: 200px; padding-left: 3px;">Senha: </td>
                                         <td>
-                                            <input type="password" name="pizzaria.senha" id="pizzaria.senha" style="width: 40%; height: 20px; border: 1px solid #5a0805; padding-left: 20px;" />
+                                            <input type="password" name="pizzaria.senha" value="${pizzaria.senha}" id="pizzaria.senha" style="width: 40%; height: 20px; border: 1px solid #5a0805; padding-left: 3px;" />
                                             
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td colspan="2" style="padding-top: 20px; border-bottom: 1px solid #773e3c; font-size: 16px; font-weight: bold; padding-bottom: 10px;">Dados da sua Pizzaria</td>
+                                        <td colspan="2" style="padding-top: 20px; border-bottom: 1px solid #773e3c; font-size: 14px; font-weight: bold; padding-bottom: 10px;">Dados da sua Pizzaria</td>
                                     </tr>
                                     <tr><td colspan="2" style="height: 20px;"></td></tr>
                                     <tr>
-                                        <td style="font-size: 14px; width: 200px; padding-left: 10px;">Razão Social: </td>
-                                        <td><input type="text" name="pizzaria.razao_social" value="${pizzaria.razao_social}" style="width: 60%; height: 20px; border: 1px solid #5a0805; padding-left: 20px;" /></td>
+                                        <td style="font-size: 14px; width: 200px; padding-left: 3px;">Razão Social: </td>
+                                        <td><input type="text" name="pizzaria.razao_social" value="${pizzaria.razao_social}" style="width: 60%; height: 20px; border: 1px solid #5a0805; padding-left: 3px;" /></td>
                                     </tr>
                                     <tr>
-                                        <td style="font-size: 14px; width: 200px; padding-left: 10px;">CNPJ da Pizzaria: </td>
+                                        <td style="font-size: 14px; width: 200px; padding-left: 3px;">CNPJ da Pizzaria: </td>
                                         <td>
-                                            <input type="text" name="pizzaria.cnpj" value="${pizzaria.cnpj}" id="cnpj" style="width: 40%; height: 20px; border: 1px solid #5a0805; padding-left: 20px;" />
+                                            <input type="text" name="pizzaria.cnpj" value="${pizzaria.cnpj}" id="cnpj" style="width: 40%; height: 20px; border: 1px solid #5a0805; padding-left: 3px;" />
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="font-size: 14px; width: 200px; padding-left: 10px;">Telefone 1 da Pizzaria: </td>
+                                        <td style="font-size: 14px; width: 200px; padding-left: 3px;">Telefone 1 da Pizzaria: </td>
                                         <td>
-                                            <input type="text" name="pizzaria.telefone1" value="${pizzaria.telefone1}" id="telefone1" style="width: 25%; height: 20px; border: 1px solid #5a0805; padding-left: 20px;" />
+                                            <input type="text" name="pizzaria.telefone1" value="${pizzaria.telefone1}" id="telefone1" style="width: 40%; height: 20px; border: 1px solid #5a0805; padding-left: 3px;" />
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="font-size: 14px; width: 200px; padding-left: 10px;">Telefone 2 da Pizzaria: </td>
+                                        <td style="font-size: 14px; width: 200px; padding-left: 3px;">Telefone 2 da Pizzaria: </td>
                                         <td>
-                                            <input type="text" name="pizzaria.telefone2" value="${pizzaria.telefone2}" id="telefone2" style="width: 25%; height: 20px; border: 1px solid #5a0805; padding-left: 20px;" />
+                                            <input type="text" name="pizzaria.telefone2" value="${pizzaria.telefone2}" id="telefone2" style="width: 40%; height: 20px; border: 1px solid #5a0805; padding-left: 3px;" />
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="font-size: 14px; width: 200px; padding-left: 10px;">Telefone 3 da Pizzaria: </td>
+                                        <td style="font-size: 14px; width: 200px; padding-left: 3px;">Telefone 3 da Pizzaria: </td>
                                         <td>
-                                            <input type="text" name="pizzaria.telefone3" value="${pizzaria.telefone3}" id="telefone3" style="width: 25%; height: 20px; border: 1px solid #5a0805; padding-left: 20px;" />
+                                            <input type="text" name="pizzaria.telefone3" value="${pizzaria.telefone3}" id="telefone3" style="width: 40%; height: 20px; border: 1px solid #5a0805; padding-left: 3px;" />
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td colspan="2" style="padding-top: 20px; border-bottom: 1px solid #773e3c; font-size: 16px; font-weight: bold; padding-bottom: 10px;">Sua localização</td>
+                                        <td colspan="2" style="padding-top: 20px; border-bottom: 1px solid #773e3c; font-size: 14px; font-weight: bold; padding-bottom: 10px;">Sua localização</td>
                                     </tr>
                                     <tr><td colspan="2" style="height: 20px;"></td></tr>	
                                     <tr>
-                                        <td style="font-size: 14px; width: 200px; padding-left: 10px;">Endereço da Pizzaria: </td>
-                                        <td><input type="text" name="pizzaria.endereco" value="${pizzaria.endereco}" id="pizzaria.endereco" style="width: 60%; height: 20px; border: 1px solid #5a0805; padding-left: 20px;" /></td>
+                                        <td style="font-size: 14px; width: 200px; padding-left: 3px;">Endereço da Pizzaria: </td>
+                                        <td><input type="text" name="pizzaria.endereco" value="${pizzaria.endereco}" id="pizzaria.endereco" style="width: 60%; height: 20px; border: 1px solid #5a0805; padding-left: 3px;" /></td>
                                     </tr>
                                     <tr>
-                                        <td style="font-size: 14px; width: 200px; padding-left: 10px;">Complemento: </td>
-                                        <td><input type="text" name="pizzaria.complemento" value="${pizzaria.complemento}" style="width: 25%; height: 20px; border: 1px solid #5a0805; padding-left: 20px;" /></td>
+                                        <td style="font-size: 14px; width: 200px; padding-left: 3px;">Complemento: </td>
+                                        <td><input type="text" name="pizzaria.complemento" value="${pizzaria.complemento}" style="width: 40%; height: 20px; border: 1px solid #5a0805; padding-left: 3px;" /></td>
                                     </tr>
                                     <tr>
-                                        <td style="font-size: 14px; width: 200px; padding-left: 10px;">CEP: </td>
-                                        <td><input type="text" name="pizzaria.cep" value="${pizzaria.cep}" id="cep" style="width: 25%; height: 20px; border: 1px solid #5a0805; padding-left: 20px;" /></td>
+                                        <td style="font-size: 14px; width: 200px; padding-left: 3px;">CEP: </td>
+                                        <td><input type="text" name="pizzaria.cep" value="${pizzaria.cep}" id="cep" style="width: 40%; height: 20px; border: 1px solid #5a0805; padding-left: 3px;" /></td>
                                     </tr>
                                     <tr>
-                                        <td style="font-size: 14px; width: 200px; padding-left: 10px;">Bairro: </td>
-                                        <td><input type="text" name="pizzaria.bairro" value="${pizzaria.bairro}" style="width: 40%; height: 20px; border: 1px solid #5a0805; padding-left: 20px;" /></td>
+                                        <td style="font-size: 14px; width: 200px; padding-left: 3px;">Bairro: </td>
+                                        <td><input type="text" name="pizzaria.bairro" value="${pizzaria.bairro}" style="width: 40%; height: 20px; border: 1px solid #5a0805; padding-left: 3px;" /></td>
                                     </tr>
                                     <tr>
-                                        <td style="font-size: 14px; width: 200px; padding-left: 10px;">Cidade: </td>
-                                        <td><input type="text" name="pizzaria.cidade" value="${pizzaria.cidade}" style="width: 40%; height: 20px; border: 1px solid #5a0805; padding-left: 20px;" /></td>
+                                        <td style="font-size: 14px; width: 200px; padding-left: 3px;">Cidade: </td>
+                                        <td><input type="text" name="pizzaria.cidade" value="${pizzaria.cidade}" style="width: 40%; height: 20px; border: 1px solid #5a0805; padding-left: 3px;" /></td>
                                     </tr>
                                     <tr>
-                                        <td style="font-size: 14px; width: 200px; padding-left: 10px;">Estado: </td>
-                                        <!--                        <td><input type="text" name="pizzaria.estado" style="width: 25%; height: 20px; border: 1px solid #5a0805; padding-left: 20px;" /></td>-->
+                                        <td style="font-size: 14px; width: 200px; padding-left: 3px;">Estado: </td>
+                                        <!--                        <td><input type="text" name="pizzaria.estado" style="width: 40%; height: 20px; border: 1px solid #5a0805; padding-left: 3px;" /></td>-->
                                         <td>
-                                            <select name="pizzaria.estado" id="pizzaria.estado" value="${pizzaria.estado}" style="width: 40%; height: 20px; border: 1px solid #5a0805; padding-left: 20px;">
+                                            <select name="pizzaria.estado" id="pizzaria_estado" style="width: 40%; height: 20px; border: 1px solid #5a0805; padding-left: 3px;">
                                                 <option value="">Selecione</option>
                                                 <option value="AC">AC</option>
                                                 <option value="AL">AL</option>
@@ -187,12 +187,12 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="font-size: 14px; width: 200px; padding-left: 10px;">Latitude: </td>
-                                        <td><input type="text" name="pizzaria.latitude" value="${pizzaria.latitude}" id="pizzaria.latitude" style="width: 25%; height: 20px; border: 1px solid #5a0805; padding-left: 20px;" /></td>
+                                        <td style="font-size: 14px; width: 200px; padding-left: 3px;">Latitude: </td>
+                                        <td><input type="text" name="pizzaria.latitude" value="${pizzaria.latitude}" id="pizzaria.latitude" style="width: 40%; height: 20px; border: 1px solid #5a0805; padding-left: 3px;" /></td>
                                     </tr>
                                     <tr>
-                                        <td style="font-size: 14px; width: 200px; padding-left: 10px;">Longitude: </td>
-                                        <td><input type="text" name="pizzaria.longitude" value="${pizzaria.longitude}" id="pizzaria.longitude" style="width: 25%; height: 20px; border: 1px solid #5a0805; padding-left: 20px;" /></td>
+                                        <td style="font-size: 14px; width: 200px; padding-left: 3px;">Longitude: </td>
+                                        <td><input type="text" name="pizzaria.longitude" value="${pizzaria.longitude}" id="pizzaria.longitude" style="width: 40%; height: 20px; border: 1px solid #5a0805; padding-left: 3px;" /></td>
                                     </tr>
                                     <tr><td colspan="2" style="height: 20px;"></td></tr>
                                     <tr>
@@ -225,6 +225,8 @@
         <script type="text/javascript">
             //Execute the function when window load
             $(document).ready(function() {
+   
+                $('#pizzaria_estado').val( '${pizzaria.estado}' );
    
                 var docHeight = $(window).height();
                 var footerHeight = $('#footer').height();

@@ -72,7 +72,7 @@ public class CadastroController {
         try {
             if(pizzaria != null) {
                 System.out.println("Vou atualizar a pizzaria com email: " + pizzaria.getId());
-                
+                System.out.println("Senha que chegou da pizzaria: " + pizzaria.getSenha());
                 Pizzaria p = pizzariaDAO.obtemPizzariaPorId(pizzaria.getId());
 
                 pizzariaDAO.atualizar(montaPizzariaParaAtualizar(pizzaria, p));
@@ -97,6 +97,7 @@ public class CadastroController {
             nova.setEmail(antiga.getEmail());
         }
         if(antiga.getSenha()!=null) {
+            System.out.println("Senha antiga: " + antiga.getSenha());
             nova.setSenha(antiga.getSenha());
         }
         if(antiga.getCnpj()!=null) {
@@ -110,6 +111,9 @@ public class CadastroController {
         }
         if(antiga.getTelefone3()!=null) {
             nova.setTelefone3(antiga.getTelefone3());
+        }
+        if(antiga.getEndereco()!=null) {
+            nova.setEndereco(antiga.getEndereco());
         }
         if(antiga.getComplemento()!=null) {
             nova.setComplemento(antiga.getComplemento());
