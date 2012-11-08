@@ -10,7 +10,9 @@ import br.com.caelum.vraptor.interceptor.multipart.UploadedFile;
 import br.com.caelum.vraptor.view.Results;
 import br.com.pizzaondemand.modelo.Pizzaria;
 import br.com.pizzaondemand.dao.PizzariaDAO;
+import br.com.pizzaondemand.dao.ProdutoDAO;
 import br.com.pizzaondemand.diversos.Imagens;
+import br.com.pizzaondemand.modelo.Produto;
 import br.com.pizzaondemand.modelo.UsuarioSession;
 import com.google.common.io.ByteStreams;
 import java.io.File;
@@ -24,17 +26,20 @@ public class CadastroController {
     private PizzariaDAO pizzariaDAO;
     private Imagens imagens;
     private UsuarioSession usuarioSession;
+    private ProdutoDAO produtoDAO;
 
     public CadastroController(
             Result result,
             PizzariaDAO pizzariaDAO,
             UsuarioSession usuarioSession,
-            Imagens imagens) {
+            Imagens imagens,
+            ProdutoDAO produtoDAO) {
 
         this.result = result;
         this.pizzariaDAO = pizzariaDAO;
         this.imagens = imagens;
         this.usuarioSession = usuarioSession;
+        this.produtoDAO = produtoDAO;
 
     }
 
@@ -214,5 +219,19 @@ public class CadastroController {
     public void verificaEmail(Pizzaria pizzaria) {
         System.out.println("Entrei em verifica email");
         result.use(Results.json()).withoutRoot().from(pizzariaDAO.verificaEmail(pizzaria)).serialize();
+    }
+    
+    @Public
+    @Post("cadastraProduto/{pizzaria.id}")
+    public void cadastraProduto(Produto produto, Long id) {
+        System.out.println("\n========== CadastroController - cadastraProduto ==========\n");
+        if(produto != null) {
+            try {
+                System.out.println("ID da Pizzaria que cadastrou o produto: " +  id);
+                produtoDAO.salva(produto);
+            } catch (Exception e) {
+                System.out.println("Erro ao salvar produto: " + e.toString());
+            }
+        }
     }
 }

@@ -64,19 +64,18 @@ public class IndexController {
     
     @Get("/edita")
     public void edita() {
-        System.out.println("Entrei em edita =========");
+        System.out.println("\n========== IndexController - edita ==========\n");
         Pizzaria pizzaria = pizzariaDAO.obtemPizzariaPorId(usuarioSession.getUser().getId());
         System.out.println("A senha que esta sendo enviada para o Edita Cadastro: " + pizzaria.getSenha());
         result.include("pizzaria", pizzaria);
     }
 
-//    @Public
-//    @Get("/editarCadastro")
-//    public void editarCadastro() {
-//       System.out.println("\n========== IndexController - editarCadastro ==========\n");
-//       Pizzaria pizzaria = pizzariaDAO.obtemPizzariaPorId(usuarioSession.getUser().getId()); 
-//       result.include("pizzaria", pizzaria);
-//    }
+    @Get("/produto")
+    public void produto() {
+        System.out.println("\n========== IndexController - produto ==========\n");
+        Pizzaria pizzaria = pizzariaDAO.obtemPizzariaPorId(usuarioSession.getUser().getId());
+        result.include("pizzaria", pizzaria);
+    }
     
 //    @Public
     @Get("/mensagemPerfil")

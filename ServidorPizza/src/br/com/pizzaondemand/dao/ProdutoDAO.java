@@ -21,4 +21,8 @@ public class ProdutoDAO {
     public List<Produto> lista() {
         return (List<Produto>) session.createQuery("FROM Produto").list();
     }
+    
+    public void salva(Produto produto) {
+        session.save(produto);
+    }
 }
