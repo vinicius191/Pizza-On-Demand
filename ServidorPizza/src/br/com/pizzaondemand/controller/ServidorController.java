@@ -68,7 +68,8 @@ public class ServidorController {
     @Path("/servidor/listaUsuarios")
     public void listaUsuarios() {
         List<Pizzaria> listaUsuario = pizzariaDAO.lista();
-        result.use(Results.json()).withoutRoot().from(listaUsuario).serialize();
+//        result.use(Results.json()).withoutRoot().from(listaUsuario).serialize();
+        result.use(Results.xml()).from(listaUsuario).serialize();
     }
 
     @Public
@@ -214,14 +215,32 @@ public class ServidorController {
         }
 
     }
-
+    
+    @Public
+    @Get("/servidor/listaPizzariasProximas/{latitude}/{longitude}")
+    public void listaPizzariaProximas(Double latitude, Double longitude) {
+        System.out.println("\n ============== ServidorController - listaPizzariasProximas =============\n");
+        try {
+            List<Pizzaria> p = pizzariaDAO.listaPizzariasProximas(latitude, longitude);
+            
+            if(!p.contains("<pizzaria>")) {
+                result.use(Results.xml()).from("Não há nenhuma Pizzaria próxima a sua localização.", "mensagem").serialize();
+            } else {
+                result.use(Results.xml()).from(p).serialize();
+            }
+        } catch (HibernateException e) {
+            System.out.println("Erro ao receber a lista de Pizzarias: " + e.toString());
+            result.use(Results.xml()).from("Tivemos um problema ao pesquisar as Pizzarias. Tente novamente mais tarde.", "mensagem").serialize();
+        }
+        
+    }
     @Public
     @Path("/mensagem")
     public void mensagem() {
 //        result.use(Results.http()).body("Parabens! Dados salvos.");
 //        JSONObject obj = new JSONObject();
 //        obj.put("codigo", 1);
-        result.use(Results.json()).from("1", "codigo").serialize();
+        result.use(Results.xml()).from("1", "codigo").serialize();
     }
     
     @Public

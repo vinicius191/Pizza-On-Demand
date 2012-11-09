@@ -49,4 +49,16 @@ public class PizzariaDAO {
     
         return p == null;
     }
+    
+    public List<Pizzaria> listaPizzariasProximas(Double lat_disp, Double lon_disp) {
+        List<Pizzaria> p = (List<Pizzaria>) session.createQuery(
+                "FROM Pizzaria WHERE"
+                + " latitude <= ' " + lat_disp + " ' + 0.05399568"
+                + " AND latitude >= ' " + lat_disp + " ' - 0.05399568"
+                + " AND longitude <= ' " + lon_disp + " ' + 0.05399568"
+                + " AND longitude >= ' " + lon_disp + " ' - 0.05399568")
+                .list();
+                
+        return p;
+    }
 }
