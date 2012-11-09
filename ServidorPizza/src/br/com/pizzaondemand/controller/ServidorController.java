@@ -80,11 +80,19 @@ public class ServidorController {
             System.out.println("Recebi o ID: " + id);
             System.out.println("Com status: " + status);
             
-            Pedido p = pedidoDAO.obtemPedidoPorId(id);
-            p.setStatus(status);
-            pedidoDAO.atualiza(p);
+            try {
+                Pedido p = pedidoDAO.obtemPedidoPorId(id);
+                p.setStatus(status);
+                pedidoDAO.atualiza(p);
+                result.use(Results.json()).withoutRoot().from(resultado).serialize();
+            } catch (HibernateException e) {
+                resultado = "Deu erro :(";
+                System.out.println("Deu erro ao obter ou salvar o pedido: " + e.toString());
+                result.use(Results.json()).withoutRoot().from(resultado).serialize();
+            }
             
             result.use(Results.json()).withoutRoot().from(resultado).serialize();
+            
         }
     }
     
@@ -179,36 +187,30 @@ public class ServidorController {
                 
                 if(ususAndroidDAO.verificaIMEI(usuario)) {
                     System.out.println("Já existe um IMEI cadastrado!!");                    
-                    result.use(Results.json()).from("1", "codigo").serialize();                    
-//                    result.include(1);
+                    result.use(Results.json()).from("codigo", "1").serialize();                    
                     
                 } else {
                     System.out.println("Não existe um IMEI cadastrado.. Programa pode continuar");
-//                    result.use(Results.http()).body("O IMEI utilizado não esta cadastrado. Seu cadastro esta sendo realizado...").setStatusCode(200);
                     ususAndroidDAO.salvar(usuario);
-                    result.use(Results.json()).from("2", "codigo").serialize();                   
-//                    result.include(2);
+                    result.use(Results.json()).from("codigo", "2").serialize();                   
  
                     try {
                         AdministracaoEmail.EnviarEmail("Cadastro - Pizza - On Demand!", montaEmailCadastroUsuario(usuario), usuario.getEmail());
-                        result.use(Results.json()).from("3", "codigo").serialize();
-//                        result.include(3);
+                        result.use(Results.json()).from("codigo", "3").serialize();
                     } catch (Exception e) {
                         System.out.println("Erro ao enviar emaill no cadastro do UsuarioAndroid: " + e.toString());
-                        result.use(Results.json()).from("4", "codigo").serialize();
-//                        result.include(4);
+                        result.use(Results.json()).from("codigo", "4").serialize();
                     }
                 
                 }
             } catch (HibernateException e) {
                 System.out.println("Deu erro ao salvar o usuario: " + e.toString());
-                result.use(Results.json()).from("5", "codigo").serialize();
-//                result.include(5);
+                result.use(Results.json()).from("codigo", "5").serialize();
             }
             
         } catch (Exception e) {
             System.out.println("Erro ao salvar UsuarioAndroid: " + e.toString());
-            result.use(Results.json()).from("6", "codigo").serialize();
+            result.use(Results.json()).from("codigo", "6").serialize();
         }
 
     }
