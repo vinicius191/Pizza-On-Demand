@@ -23,6 +23,11 @@
             <option value="<c:out value="${produto.id}" />">${produto.descricao}</option>  
         </c:forEach>
         </select>
+
+ <!--       <c:forEach items="${listaProdutos}" var="produto" varStatus="p">
+            <input type="checkbox" name="${pedido.produto.id}" value="<c:out value="${produto.id}" />" />
+             <c:out value="${produto.descricao}"></c:out>
+        </c:forEach>-->
         
         <h2>Dados do pedido:</h2>
         Endereço do pedido: <input type="text" name="pedido.enderecoEntrega" /><br>

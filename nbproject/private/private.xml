@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/1">
+        <file>file:/C:/Users/VINICIUS/git/Pizza-On-Demand/ServidorPizza/src/br/com/pizzaondemand/controller/ServidorController.java</file>
+        <file>file:/C:/Users/VINICIUS/git/Pizza-On-Demand/ServidorPizza/src/br/com/pizzaondemand/dao/PizzariaDAO.java</file>
+        <file>file:/C:/Users/VINICIUS/git/Pizza-On-Demand/ServidorPizza/src/hibernate.cfg.xml</file>
+    </open-files>
 </project-private>

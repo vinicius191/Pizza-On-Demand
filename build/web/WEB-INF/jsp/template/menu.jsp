@@ -8,7 +8,8 @@
     <li><a href="${pageContext.request.contextPath}/mensagemPerfil">Mensagem do Perfil</a>
     <li><a href="${pageContext.request.contextPath}/imagemPerfil">Imagem do Perfil</a>
     <li><a href="${pageContext.request.contextPath}/edita">Editar Cadastro</a>
-    <li><a href="${pageContext.request.contextPath}/produto">Cadastrar Produto</a>
+    <li><a href="${pageContext.request.contextPath}/produto">Cadastrar Produtos</a>
+    <li><a href="${pageContext.request.contextPath}/listaProduto">Mostrar Produtos</a>
     <li><a href="${pageContext.request.contextPath}/logout">Sair</a>
 <!--    <li><a href="#">Desligar-se</a></li>-->
 </ul>
