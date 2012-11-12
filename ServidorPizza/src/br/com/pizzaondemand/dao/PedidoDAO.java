@@ -23,6 +23,10 @@ public class PedidoDAO {
         return (List<Pedido>) session.createQuery("FROM Pedido").list();
     }
     
+    public List<Pedido> listaDisponiveis() {
+        return (List<Pedido>) session.createQuery("FROM Pedido WHERE status = -1").list();
+    }
+    
     public List<PedidoWS> listaWS() {
         return (List<PedidoWS>) session.createQuery("FROM Pedido").list();
     }
@@ -33,5 +37,9 @@ public class PedidoDAO {
 
     public void atualiza(Pedido pedido) {
         session.merge(pedido);
+    }
+
+    public void salva(List<Pedido> pedido) {
+        session.save(pedido);
     }
 }

@@ -1,11 +1,13 @@
 package br.com.pizzaondemand.modelo;
 
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+
 
 @Entity
 public class Produto implements java.io.Serializable{
@@ -24,13 +26,15 @@ public class Produto implements java.io.Serializable{
     private Pizzaria pizzaria;
     @OneToMany(mappedBy="produto")
     private List<Pedido> pedidos;
+    @OneToMany(mappedBy="produto")
+    private List<ProdutoPedido> produtoPedidos;
 
-    public String getDescricao() {
-        return descricao;
+    public Long getId() {
+        return id;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getDetalhe() {
@@ -41,44 +45,12 @@ public class Produto implements java.io.Serializable{
         this.detalhe = detalhe;
     }
 
-    public String getExtraDescricao() {
-        return extraDescricao;
+    public char getTipo() {
+        return tipo;
     }
 
-    public void setExtraDescricao(String extraDescricao) {
-        this.extraDescricao = extraDescricao;
-    }
-
-    public Double getExtraPreco() {
-        return extraPreco;
-    }
-
-    public void setExtraPreco(Double extraPreco) {
-        this.extraPreco = extraPreco;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public List<Pedido> getPedidos() {
-        return pedidos;
-    }
-
-    public void setPedidos(List<Pedido> pedidos) {
-        this.pedidos = pedidos;
-    }
-
-    public Pizzaria getPizzaria() {
-        return pizzaria;
-    }
-
-    public void setPizzaria(Pizzaria pizzaria) {
-        this.pizzaria = pizzaria;
+    public void setTipo(char tipo) {
+        this.tipo = tipo;
     }
 
     public Double getPreco1() {
@@ -105,12 +77,53 @@ public class Produto implements java.io.Serializable{
         this.preco3 = preco3;
     }
 
-    public char getTipo() {
-        return tipo;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setTipo(char tipo) {
-        this.tipo = tipo;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
+    public String getExtraDescricao() {
+        return extraDescricao;
+    }
+
+    public void setExtraDescricao(String extraDescricao) {
+        this.extraDescricao = extraDescricao;
+    }
+
+    public Double getExtraPreco() {
+        return extraPreco;
+    }
+
+    public void setExtraPreco(Double extraPreco) {
+        this.extraPreco = extraPreco;
+    }
+
+    public Pizzaria getPizzaria() {
+        return pizzaria;
+    }
+
+    public void setPizzaria(Pizzaria pizzaria) {
+        this.pizzaria = pizzaria;
+    }
+
+    public List<Pedido> getPedidos() {
+        return pedidos;
+    }
+
+    public void setPedidos(List<Pedido> pedidos) {
+        this.pedidos = pedidos;
+    }
+
+    public List<ProdutoPedido> getProdutoPedidos() {
+        return produtoPedidos;
+    }
+
+    public void setProdutoPedidos(List<ProdutoPedido> produtoPedidos) {
+        this.produtoPedidos = produtoPedidos;
+    }
+
+  
 }

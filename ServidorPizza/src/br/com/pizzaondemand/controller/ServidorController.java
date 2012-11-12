@@ -31,6 +31,7 @@ import br.com.pizzaondemand.dao.ProdutoDAO;
 import br.com.pizzaondemand.dao.UsuarioAndroidDAO;
 import br.com.pizzaondemand.diversos.AdministracaoEmail;
 import br.com.pizzaondemand.modelo.Pedido;
+import br.com.pizzaondemand.modelo.PizzariaWS;
 import br.com.pizzaondemand.modelo.UsuarioAndroid;
 
 import com.google.gson.Gson;
@@ -126,10 +127,11 @@ public class ServidorController {
         result.nothing();
     }
 
+    /*
     @Public
     @Path("/servidor/listaPedidos")
     public void listaPedidos() {
-        List<Pedido> listaPedidos = pedidoDAO.lista();
+        List<Pedido> listaPedidos = pedidoDAO.listaDisponiveis();
         List<PedidoWS> pWS2 = new ArrayList<PedidoWS>();
         PedidoWS pWS = null;
         StringBuilder sB = new StringBuilder();
@@ -150,7 +152,9 @@ public class ServidorController {
 //        result.use(Results.json()).withoutRoot().from(listaPedidos).include("produto.detalhe").serialize();
         result.use(Results.json()).withoutRoot().from(pWS2).serialize();
     }
-    
+    */
+
+    /*
     @Public
     @Path("/servidor/listaPedidosJSON")
     public void listaPedidosJSON() {
@@ -166,6 +170,7 @@ public class ServidorController {
         String teste = obj.toString();
         result.use(Results.json()).from(teste).serialize();
     }
+    */
     
     @Public
     @Get("/servidor/recebePedido/{pedido}")
@@ -188,8 +193,9 @@ public class ServidorController {
                 
                 if(ususAndroidDAO.verificaIMEI(usuario)) {
                     System.out.println("Já existe um IMEI cadastrado!!");                    
-                    result.use(Results.json()).from("codigo", "1").serialize();                    
-                    
+//                    result.use(Results.json()).from("codigo", "1").serialize();
+                    result.use(Results.status()).badRequest("");
+//                    
                 } else {
                     System.out.println("Não existe um IMEI cadastrado.. Programa pode continuar");
                     ususAndroidDAO.salvar(usuario);
@@ -234,13 +240,45 @@ public class ServidorController {
         }
         
     }
+    
+    @Public
+    @Path("/servidor/listaPizzarias")
+    public void listaPizzarias() {
+        try {
+            List<Pizzaria> p = pizzariaDAO.lista();
+            Pizzaria pizzaria = new Pizzaria();
+            PizzariaWS pWS = null;
+            List<PizzariaWS> pWS2 = new ArrayList<PizzariaWS>();
+            if(!p.contains("<pizzaria>")) {
+                for(int i = 0; i < p.size(); i++) {
+                    pWS = new PizzariaWS();
+                    pWS.setRazaoSocial(p.get(i).getRazao_social());
+                    pWS.setMensagemPerfil(p.get(i).getMensagemPerfil());
+                    pWS.setLatitude(p.get(i).getLatitude());
+                    pWS.setLongitude(p.get(i).getLongitude());
+                    pWS.setFormaPagamento(p.get(i).getFormaPagamento().getDescricao());
+                    
+                    pWS2.add(pWS);
+                }
+                
+                result.use(Results.xml()).from(pWS2).serialize();
+            } else {
+                result.use(Results.xml()).from("Erro", "Erro").serialize();
+            }
+        } catch (Exception e) {
+            System.out.println("Deu erro: " + e.toString());
+        }
+        
+        
+    }
+    
     @Public
     @Path("/mensagem")
     public void mensagem() {
 //        result.use(Results.http()).body("Parabens! Dados salvos.");
 //        JSONObject obj = new JSONObject();
 //        obj.put("codigo", 1);
-        result.use(Results.xml()).from("1", "codigo").serialize();
+        result.use(Results.xml()).from("codigo", "1").serialize();
     }
     
     @Public

@@ -66,18 +66,19 @@
                         <jsp:include page="../template/conteudo.jsp" />
                         <div style="padding: 20px;">
                             <form id="formAtualizaCadastro" action="${pageContext.request.contextPath}/cadastraProduto/${pizzaria.id}" method="POST">
+<!--                            <form id="formAtualizaCadastro"> -->
                                 <table border="0" width="94%" align="left" style="color: #5a0805; font-size: 18px;">
                                     <tr>
                                         <td colspan="2" style="padding-top: 20px; border-bottom: 1px solid #773e3c; font-size: 14px; font-weight: bold; padding-bottom: 10px;">Cadastro de produtos</td>
                                     </tr>
                                     <tr><td colspan="2" style="height: 20px;"></td></tr>
                                     <tr>
-                                        <td style="font-size: 14px; padding-left: 3px;">Tipo do produto: </td>
-                                        <td><input type="text" name="pizzaria.endereco" value="${pizzaria.endereco}" id="pizzaria.endereco" style="width: 60%; height: 20px; border: 1px solid #5a0805; padding-left: 3px;" />
+                                        <td style="font-size: 14px; padding-left: 3px;" width="180px">Tipo do produto: </td>
+                                        <td><input type="text" name="produto.tipo" id="produto.tipo" style="width: 60%; height: 20px; border: 1px solid #5a0805; padding-left: 3px;" />
                                         </td>                                        
                                     </tr>
                                     <tr>
-                                        <td colspan="2" style="border: 1px solid black;">
+                                        <td colspan="2" style="text-align: center">
                                             <span style="font-size: 11px;">(1 - Pizza, 2 - Bebidas, 3 - Outros)</span>
                                         </td>
                                     </tr> 
@@ -91,7 +92,7 @@
                                     <tr style="height: 40px;">
                                         <td style="font-size: 14px; padding-left: 3px;">Detalhe do produto: </td>
                                         <td>
-                                            <input type="text" name="produto.descricao" id="produto.descricao" style="width: 40%; height: 20px; border: 1px solid #5a0805; padding-left: 3px;" />
+                                            <input type="text" name="produto.detalhe" id="produto.detalhe" style="width: 40%; height: 20px; border: 1px solid #5a0805; padding-left: 3px;" />
                                             
                                         </td>
                                     </tr>
@@ -106,12 +107,12 @@
                                         </td>
                                     </tr>
                                     <tr style="height: 40px;">
-                                        <td style="font-size: 14px; border: 1px solid black; padding-left: 3px;">Preço 1: </td>
+                                        <td style="font-size: 14px; padding-left: 3px;">Preço 1: </td>
                                         <td>
                                             <input type="text" name="produto.preco1" style="width: 40%; height: 20px; border: 1px solid #5a0805; padding-left: 3px;" />
                                     </tr>
                                     <tr>
-                                        <td colspan="2" style="border: 1px solid black;">
+                                        <td colspan="2" style="text-align: center">
                                             <span style="font-size: 11px;">(para pizza pequena - se o produto não for pizza, não preencha)</span>
                                         </td>
                                     </tr> 
@@ -122,7 +123,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td colspan="2">
+                                        <td colspan="2" style="text-align: center">
                                             <span style="font-size: 11px;">(para pizza média - se o produto não for pizza, não preencha)</span>
                                         </td>
                                     </tr>
@@ -133,7 +134,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td colspan="2">
+                                        <td colspan="2" style="text-align: center">
                                             <span style="font-size: 11px;">(para pizza grande - se o produto não for pizza, não preencha)</span>
                                         </td>
                                     </tr>
@@ -143,7 +144,7 @@
                                     <tr>
                                         <td colspan="2" style="height: 50px; text-align: center;">
                                             <input type="submit" id="enviar" value="Cadastrar" style="font-size: 14px; color: white; height: 30px; background-color: #b96d69; border: 0px" />
-                                            <input type="reset" id="enviar" value="Limpar" style="margin-left: 40px; font-size: 14px; color: white; height: 30px; background-color: #b96d69; border: 0px" />
+                                            <input type="reset" id="limpar" value="Limpar" style="margin-left: 40px; font-size: 14px; color: white; height: 30px; background-color: #b96d69; border: 0px" />
                                         </td>	
                                     </tr>
                                 </table>
@@ -174,6 +175,7 @@
                     $('#footer').css('margin-top', 10 + (docHeight - footerTop) + 'px');
                 }
             });
+            
         </script>
 
     </body>

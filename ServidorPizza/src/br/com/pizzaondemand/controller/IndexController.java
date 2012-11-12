@@ -77,6 +77,14 @@ public class IndexController {
         result.include("pizzaria", pizzaria);
     }
     
+    @Public
+    @Get("/listaProduto")
+    public void listaProduto() {
+       System.out.println("\n========== IndexController - listaProduto ==========\n");
+       List<Produto> p = produtoDAO.lista();
+       result.include("produto", p);
+    }
+    
 //    @Public
     @Get("/mensagemPerfil")
     public void mensagemPerfil() {
@@ -105,24 +113,27 @@ public class IndexController {
     
     @Public
     @Post("/cadastroPedido")
-    public void cadastroPedido(Pedido pedido) {
+    public void cadastroPedido(List<String> pedido) {
         System.out.println("Entrei com sucesso...");
-        System.out.println("ID do produto: " + pedido.getProduto().getId());
-        if(pedido!=null) {
-            pedidoDAO.salva(pedido);         
+        for(int i = 0; i < pedido.size(); i++) {
+            System.out.println("-> " + pedido.get(i).toString());
         }
+//        System.out.println("ID do produto: " + pedido.getProduto().getId());
+//        if(pedido!=null) {
+//            pedidoDAO.salva(pedido);         
+//        }
         
-        Produto produto = produtoDAO.obtemProdutoPorId(pedido.getProduto().getId());
+//        Produto produto = produtoDAO.obtemProdutoPorId(pedido.getProduto().getId());
+//        
+//        StringBuilder sB = new StringBuilder();
+//        sB.append(pedido.getId());
+//        sB.append(produto.getDescricao());
+//        sB.append(produto.getPreco1());
+//        
+//        String resultado = "";
+//        resultado = sB.toString();
         
-        StringBuilder sB = new StringBuilder();
-        sB.append(pedido.getId());
-        sB.append(produto.getDescricao());
-        sB.append(produto.getPreco1());
-        
-        String resultado = "";
-        resultado = sB.toString();
-        
-        result.use(Results.xml()).from(sB.toString()).serialize();
+        result.use(Results.xml()).from(pedido).serialize();
     }
     
     @Public

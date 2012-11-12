@@ -18,6 +18,7 @@ import com.google.common.io.ByteStreams;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import org.hibernate.HibernateException;
 
 @Resource
 public class CadastroController {
@@ -222,16 +223,40 @@ public class CadastroController {
     }
     
     @Public
-    @Post("cadastraProduto/{pizzaria.id}")
+    @Path("cadastraProduto/{id}")
     public void cadastraProduto(Produto produto, Long id) {
         System.out.println("\n========== CadastroController - cadastraProduto ==========\n");
         if(produto != null) {
             try {
                 System.out.println("ID da Pizzaria que cadastrou o produto: " +  id);
+                produto.setPizzaria(pizzariaDAO.obtemPizzariaPorId(id));
                 produtoDAO.salva(produto);
+                result.redirectTo(IndexController.class).produto();
             } catch (Exception e) {
                 System.out.println("Erro ao salvar produto: " + e.toString());
+                result.redirectTo(IndexController.class).index();
             }
         }
+    }
+    
+    @Path("excluiProduto/{produto.id}/{produto.pizzaria.id}")
+    public void excluiProduto(Produto produto) {
+        System.out.println("\n========== CadastroController - excluiProduto ==========\n");
+        System.out.println("Pizzaria ID: " + produto.getPizzaria().getId());
+        if(produto != null && produto.getId() != null) {
+            try {
+                Produto p = produtoDAO.obtemProdutoPorId(produto.getId());
+                p.setPizzaria(null);
+                produtoDAO.exclui(p);
+            } catch (HibernateException e) {
+                System.out.println("Deu erro ao excluir o produto: " + e.toString());
+            }
+            result.redirectTo(IndexController.class).listaProduto();
+        } else {
+            System.out.println("Produto chegou nulo!");
+            result.nothing();
+        }
+        
+        result.use(Results.http()).body("erro");
     }
 }

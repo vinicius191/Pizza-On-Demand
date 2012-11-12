@@ -1,9 +1,11 @@
 package br.com.pizzaondemand.modelo;
 
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -30,72 +32,12 @@ public class Pizzaria implements java.io.Serializable {
     private Double longitude;
     private String mensagemPerfil;
     private byte[] imagemPerfil;
-    @OneToMany(mappedBy="pizzaria")
+    @OneToMany(mappedBy="pizzaria", cascade=CascadeType.ALL) 
     private List<Produto> produtos;
-
-    public String getBairro() {
-        return bairro;
-    }
-
-    public void setBairro(String bairro) {
-        this.bairro = bairro;
-    }
-
-    public String getCep() {
-        return cep;
-    }
-
-    public void setCep(String cep) {
-        this.cep = cep;
-    }
-
-    public String getCidade() {
-        return cidade;
-    }
-
-    public void setCidade(String cidade) {
-        this.cidade = cidade;
-    }
-
-    public String getCnpj() {
-        return cnpj;
-    }
-
-    public void setCnpj(String cnpj) {
-        this.cnpj = cnpj;
-    }
-
-    public String getComplemento() {
-        return complemento;
-    }
-
-    public void setComplemento(String complemento) {
-        this.complemento = complemento;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
+    @OneToMany(mappedBy="pizzaria", cascade=CascadeType.ALL) 
+    private List<Pedido> pedidos;
+    @ManyToOne
+    private FormaPagamento formaPagamento;
 
     public Long getId() {
         return id;
@@ -103,54 +45,6 @@ public class Pizzaria implements java.io.Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public byte[] getImagemPerfil() {
-        return imagemPerfil;
-    }
-
-    public void setImagemPerfil(byte[] imagemPerfil) {
-        this.imagemPerfil = imagemPerfil;
-    }
-
-    public Double getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(Double latitude) {
-        this.latitude = latitude;
-    }
-
-    public Double getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(Double longitude) {
-        this.longitude = longitude;
-    }
-
-    public String getMensagemPerfil() {
-        return mensagemPerfil;
-    }
-
-    public void setMensagemPerfil(String mensagemPerfil) {
-        this.mensagemPerfil = mensagemPerfil;
-    }
-
-    public String getNome_fantasia() {
-        return nome_fantasia;
-    }
-
-    public void setNome_fantasia(String nome_fantasia) {
-        this.nome_fantasia = nome_fantasia;
-    }
-
-    public List<Produto> getProdutos() {
-        return produtos;
-    }
-
-    public void setProdutos(List<Produto> produtos) {
-        this.produtos = produtos;
     }
 
     public String getRazao_social() {
@@ -161,12 +55,36 @@ public class Pizzaria implements java.io.Serializable {
         this.razao_social = razao_social;
     }
 
+    public String getNome_fantasia() {
+        return nome_fantasia;
+    }
+
+    public void setNome_fantasia(String nome_fantasia) {
+        this.nome_fantasia = nome_fantasia;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getSenha() {
         return senha;
     }
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public String getCnpj() {
+        return cnpj;
+    }
+
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
     }
 
     public String getTelefone1() {
@@ -193,4 +111,110 @@ public class Pizzaria implements java.io.Serializable {
         this.telefone3 = telefone3;
     }
 
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
+    public String getComplemento() {
+        return complemento;
+    }
+
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getMensagemPerfil() {
+        return mensagemPerfil;
+    }
+
+    public void setMensagemPerfil(String mensagemPerfil) {
+        this.mensagemPerfil = mensagemPerfil;
+    }
+
+    public byte[] getImagemPerfil() {
+        return imagemPerfil;
+    }
+
+    public void setImagemPerfil(byte[] imagemPerfil) {
+        this.imagemPerfil = imagemPerfil;
+    }
+
+    public List<Produto> getProdutos() {
+        return produtos;
+    }
+
+    public void setProdutos(List<Produto> produtos) {
+        this.produtos = produtos;
+    }
+
+    public List<Pedido> getPedidos() {
+        return pedidos;
+    }
+
+    public void setPedidos(List<Pedido> pedidos) {
+        this.pedidos = pedidos;
+    }
+
+    public FormaPagamento getFormaPagamento() {
+        return formaPagamento;
+    }
+
+    public void setFormaPagamento(FormaPagamento formaPagamento) {
+        this.formaPagamento = formaPagamento;
+    }
+
+    
+ 
 }

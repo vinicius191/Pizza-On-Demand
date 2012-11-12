@@ -6,8 +6,14 @@
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
     <!--               -->
     <!-- MAQUINA LOCAL -->
-    <!-- BANCO 02      -->
-    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/pizza?useUnicode=true&amp;characterEncoding=UTF-8</property>
+    <!-- BANCO PIZZA   -->
+<!--    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/pizza?useUnicode=true&amp;characterEncoding=UTF-8</property>
+    <property name="hibernate.connection.username">root</property>
+    <property name="hibernate.connection.password">root</property>-->
+    <!--               -->
+    <!-- MAQUINA LOCAL -->
+    <!-- BANCO PIZZA2  -->
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/pizza2?useUnicode=true&amp;characterEncoding=UTF-8</property>
     <property name="hibernate.connection.username">root</property>
     <property name="hibernate.connection.password">root</property>
     <!--                                  -->
@@ -30,6 +36,8 @@
     <mapping class="br.com.pizzaondemand.modelo.Pizzaria"/>
     <mapping class="br.com.pizzaondemand.modelo.Produto"/>
     <mapping class="br.com.pizzaondemand.modelo.Pedido"/>
+    <mapping class="br.com.pizzaondemand.modelo.ProdutoPedido"/>
+    <mapping class="br.com.pizzaondemand.modelo.FormaPagamento"/>
         
   </session-factory>
 </hibernate-configuration>
