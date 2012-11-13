@@ -4,9 +4,12 @@
  */
 package br.com.pizzaondemand.modelo;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 /**
@@ -14,15 +17,18 @@ import javax.persistence.OneToMany;
  * @author VINICIUS
  */
 @Entity
-public class FormaPagamento {
+public class FormaPagamento implements Serializable {
     
     @Id
+    @GeneratedValue
     private Long id;
     private String descricao;
     @OneToMany(mappedBy="formaPagamento")
     private List<Pedido> pedidos;
-    @OneToMany(mappedBy="formaPagamento")
-    private List<Pizzaria> pizzarias;
+    @OneToMany(mappedBy = "formaPagamento")
+    private List<PizzariaFormaPagamento> pizzariasFormasPagamento;
+//    @OneToMany(mappedBy="formaPagamento")
+//    private List<Pizzaria> pizzarias;
 
     public Long getId() {
         return id;
@@ -48,13 +54,17 @@ public class FormaPagamento {
         this.pedidos = pedidos;
     }
 
-    public List<Pizzaria> getPizzarias() {
-        return pizzarias;
+    public List<PizzariaFormaPagamento> getPizzariasFormasPagamento() {
+        return pizzariasFormasPagamento;
     }
 
-    public void setPizzarias(List<Pizzaria> pizzarias) {
-        this.pizzarias = pizzarias;
+    public void setPizzariasFormasPagamento(List<PizzariaFormaPagamento> pizzariasFormasPagamento) {
+        this.pizzariasFormasPagamento = pizzariasFormasPagamento;
     }
+
+
+
+
     
     
 }

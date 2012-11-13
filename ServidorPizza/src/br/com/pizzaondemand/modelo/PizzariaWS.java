@@ -4,6 +4,8 @@
  */
 package br.com.pizzaondemand.modelo;
 
+import java.util.List;
+
 /**
  *
  * @author VINICIUS
@@ -15,7 +17,7 @@ public class PizzariaWS {
     private String mensagemPerfil;
     private Double latitude;
     private Double longitude;
-    private String formaPagamento;
+    private List<PizzariaFormaPagamento> formaPagamento;
 
     public Long getId() {
         return id;
@@ -57,14 +59,13 @@ public class PizzariaWS {
         this.longitude = longitude;
     }
 
-    public String getFormaPagamento() {
+    public List<PizzariaFormaPagamento> getFormaPagamento() {
         return formaPagamento;
     }
 
-    public void setFormaPagamento(String formaPagamento) {
+    public void setFormaPagamento(List<PizzariaFormaPagamento> formaPagamento) {
         this.formaPagamento = formaPagamento;
     }
-    
-    
+
     
 }

@@ -38,6 +38,7 @@
     <mapping class="br.com.pizzaondemand.modelo.Pedido"/>
     <mapping class="br.com.pizzaondemand.modelo.ProdutoPedido"/>
     <mapping class="br.com.pizzaondemand.modelo.FormaPagamento"/>
+    <mapping class="br.com.pizzaondemand.modelo.PizzariaFormaPagamento"/>
         
   </session-factory>
 </hibernate-configuration>

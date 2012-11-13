@@ -36,8 +36,8 @@ public class Pizzaria implements java.io.Serializable {
     private List<Produto> produtos;
     @OneToMany(mappedBy="pizzaria", cascade=CascadeType.ALL) 
     private List<Pedido> pedidos;
-    @ManyToOne
-    private FormaPagamento formaPagamento;
+    @OneToMany(mappedBy = "pizzaria", cascade = CascadeType.ALL)
+    private List<PizzariaFormaPagamento> pizzariasFormasPagamento;
 
     public Long getId() {
         return id;
@@ -207,14 +207,14 @@ public class Pizzaria implements java.io.Serializable {
         this.pedidos = pedidos;
     }
 
-    public FormaPagamento getFormaPagamento() {
-        return formaPagamento;
+    public List<PizzariaFormaPagamento> getPizzariasFormasPagamento() {
+        return pizzariasFormasPagamento;
     }
 
-    public void setFormaPagamento(FormaPagamento formaPagamento) {
-        this.formaPagamento = formaPagamento;
+    public void setPizzariasFormasPagamento(List<PizzariaFormaPagamento> pizzariasFormasPagamento) {
+        this.pizzariasFormasPagamento = pizzariasFormasPagamento;
     }
 
-    
+ 
  
 }

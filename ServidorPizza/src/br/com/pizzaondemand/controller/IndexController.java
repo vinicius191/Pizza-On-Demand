@@ -2,16 +2,20 @@ package br.com.pizzaondemand.controller;
 
 import br.com.caelum.vraptor.*;
 import br.com.caelum.vraptor.view.Results;
+import br.com.pizzaondemand.dao.FormaPagamentoDAO;
 import br.com.pizzaondemand.dao.PedidoDAO;
 import br.com.pizzaondemand.dao.PizzariaDAO;
+import br.com.pizzaondemand.dao.PizzariaFormaPagamentoDAO;
 import br.com.pizzaondemand.dao.ProdutoDAO;
 import br.com.pizzaondemand.dao.UsuarioAndroidDAO;
 import br.com.pizzaondemand.diversos.Public;
-import br.com.pizzaondemand.modelo.Pedido;
+import br.com.pizzaondemand.modelo.FormaPagamento;
 import br.com.pizzaondemand.modelo.Pizzaria;
+import br.com.pizzaondemand.modelo.PizzariaFormaPagamento;
+import br.com.pizzaondemand.modelo.PizzariaFormaPagamentoWS;
 import br.com.pizzaondemand.modelo.Produto;
-import br.com.pizzaondemand.modelo.UsuarioAndroid;
 import br.com.pizzaondemand.modelo.UsuarioSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @Resource
@@ -24,6 +28,8 @@ public class IndexController {
     private final UsuarioAndroidDAO usuarioAndroidDAO;
     private UsuarioSession usuarioSession;
     private final PizzariaDAO pizzariaDAO;
+    private final PizzariaFormaPagamentoDAO pizzariaFormaPagamentoDAO;
+    private final FormaPagamentoDAO formaPagamentoDAO;
 
     public IndexController(
             Result result,
@@ -31,7 +37,9 @@ public class IndexController {
             ProdutoDAO produtoDAO,
             UsuarioAndroidDAO usuarioAndroidDAO,
             UsuarioSession usuarioSession,
-            PizzariaDAO pizzariaDAO) {
+            PizzariaDAO pizzariaDAO,
+            PizzariaFormaPagamentoDAO pizzariaFormaPagamentoDAO,
+            FormaPagamentoDAO formaPagamentoDAO) {
 
         this.result = result;
         this.pedidoDAO = pedidoDAO;
@@ -39,6 +47,8 @@ public class IndexController {
         this.usuarioAndroidDAO = usuarioAndroidDAO;
         this.usuarioSession = usuarioSession;
         this.pizzariaDAO = pizzariaDAO;
+        this.pizzariaFormaPagamentoDAO = pizzariaFormaPagamentoDAO;
+        this.formaPagamentoDAO = formaPagamentoDAO;
     }
 
     @Path("/index")
@@ -104,11 +114,38 @@ public class IndexController {
     @Public
     @Path("/teste")
     public void teste() {
-        List<UsuarioAndroid> listaUsuarioAndroid = usuarioAndroidDAO.lista();
-        List<Produto> lista = produtoDAO.lista();
-        result.include("listaUsuarios", listaUsuarioAndroid);
-        result.include("listaProdutos", lista);
+//        List<UsuarioAndroid> listaUsuarioAndroid = usuarioAndroidDAO.lista();
+//        List<Produto> lista = produtoDAO.lista();
+//        result.include("listaUsuarios", listaUsuarioAndroid);
+//        result.include("listaProdutos", lista);
+        Pizzaria p = pizzariaDAO.obtemPizzariaPorId(1L);
+        List<FormaPagamento> fP = formaPagamentoDAO.lista();
+        result.include("listaFormaPagamento", fP);
+        result.include("pizzaria", p);
+//        Pizzaria p = new Pizzaria();
+//        PizzariaFormaPagamento pFP = null;
+//        p.setPizzariasFormasPagamento(null);
         
+    }
+
+    @Public
+    @Post("/teste/cadastro/{pizzaria.id}")
+    public void cadastro(List<PizzariaFormaPagamento> pizzariaFormaPagamento, Pizzaria pizzaria) {
+        for( int i = 0; i < pizzariaFormaPagamento.size(); i++ ) {
+            PizzariaFormaPagamento pFP = new PizzariaFormaPagamento();
+            
+            pFP.setFormaPagamento(pizzariaFormaPagamento.get(i).getFormaPagamento());
+            pFP.setPizzaria(pizzaria);
+            
+            pizzariaFormaPagamentoDAO.salvar(pFP);
+            
+        }
+        
+        try {
+            result.nothing();
+        } catch (Exception e) {
+            result.notFound();
+        }
     }
     
     @Public

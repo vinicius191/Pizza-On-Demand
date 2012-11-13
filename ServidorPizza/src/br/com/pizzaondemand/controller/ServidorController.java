@@ -23,14 +23,18 @@ import org.json.simple.JSONValue;
 //import com.google.gson.reflect.TypeToken;
 
 import br.com.caelum.vraptor.view.Results;
+import br.com.pizzaondemand.dao.FormaPagamentoDAO;
 import br.com.pizzaondemand.dao.PedidoDAO;
 import br.com.pizzaondemand.diversos.Public;
 import br.com.pizzaondemand.modelo.Pizzaria;
 import br.com.pizzaondemand.dao.PizzariaDAO;
+import br.com.pizzaondemand.dao.PizzariaFormaPagamentoDAO;
 import br.com.pizzaondemand.dao.ProdutoDAO;
 import br.com.pizzaondemand.dao.UsuarioAndroidDAO;
 import br.com.pizzaondemand.diversos.AdministracaoEmail;
+import br.com.pizzaondemand.modelo.FormaPagamento;
 import br.com.pizzaondemand.modelo.Pedido;
+import br.com.pizzaondemand.modelo.PizzariaFormaPagamento;
 import br.com.pizzaondemand.modelo.PizzariaWS;
 import br.com.pizzaondemand.modelo.UsuarioAndroid;
 
@@ -50,19 +54,25 @@ public class ServidorController {
     private final PedidoDAO pedidoDAO;
     private final ProdutoDAO produtoDAO;
     private final UsuarioAndroidDAO ususAndroidDAO;
+    private final PizzariaFormaPagamentoDAO pizzariaFormaPagamentoDAO;
+    private final FormaPagamentoDAO formaPagamentoDAO;
 
     public ServidorController(
             PizzariaDAO pizzariaDAO,
             Result result,
             PedidoDAO pedidoDAO,
             ProdutoDAO produtoDAO,
-            UsuarioAndroidDAO usuarioAndroidDAO) {
+            UsuarioAndroidDAO usuarioAndroidDAO, 
+            PizzariaFormaPagamentoDAO pizzariaFormaPagamentoDAO,
+            FormaPagamentoDAO formaPagamentoDAO) {
 
         this.result = result;
         this.pizzariaDAO = pizzariaDAO;
         this.pedidoDAO = pedidoDAO;
         this.produtoDAO = produtoDAO;
         this.ususAndroidDAO = usuarioAndroidDAO;
+        this.formaPagamentoDAO = formaPagamentoDAO;
+        this.pizzariaFormaPagamentoDAO = pizzariaFormaPagamentoDAO;
     }
 
     @Public
@@ -228,15 +238,29 @@ public class ServidorController {
         System.out.println("\n ============== ServidorController - listaPizzariasProximas =============\n");
         try {
             List<Pizzaria> p = pizzariaDAO.listaPizzariasProximas(latitude, longitude);
-            
+            List<PizzariaFormaPagamento> pFP = pizzariaFormaPagamentoDAO.obtemListaFormasPagamentoPorPizzarias(p);
             if(!p.contains("<pizzaria>")) {
                 result.use(Results.xml()).from("Não há nenhuma Pizzaria próxima a sua localização.", "mensagem").serialize();
             } else {
-                result.use(Results.xml()).from(p).serialize();
+                PizzariaWS pWS = null;
+                List<PizzariaWS> pWS2 = new ArrayList<PizzariaWS>();
+                for(int i = 0; i < p.size(); i++) {
+                    pWS = new PizzariaWS();
+
+                    pWS.setRazaoSocial(p.get(i).getRazao_social());
+                    pWS.setMensagemPerfil(p.get(i).getMensagemPerfil());
+                    pWS.setLatitude(p.get(i).getLatitude());
+                    pWS.setLongitude(p.get(i).getLongitude());
+                    pWS.setFormaPagamento(p.get(i).getPizzariasFormasPagamento());
+                    
+                    pWS2.add(pWS);
+                }
+                result.use(Results.json()).withoutRoot().from(pWS2).include("formaPagamento").serialize();
             }
         } catch (HibernateException e) {
             System.out.println("Erro ao receber a lista de Pizzarias: " + e.toString());
-            result.use(Results.xml()).from("Tivemos um problema ao pesquisar as Pizzarias. Tente novamente mais tarde.", "mensagem").serialize();
+//            result.use(Results.json()).from("Tivemos um problema ao pesquisar as Pizzarias. Tente novamente mais tarde.", "mensagem").serialize();
+            result.use(Results.json()).from("", "").serialize();
         }
         
     }
@@ -246,6 +270,7 @@ public class ServidorController {
     public void listaPizzarias() {
         try {
             List<Pizzaria> p = pizzariaDAO.lista();
+//            List<PizzariaFormaPagamento> pFP = pizzariaFormaPagamentoDAO.obtemListaFormasPagamentoPorPizzarias(p);
             Pizzaria pizzaria = new Pizzaria();
             PizzariaWS pWS = null;
             List<PizzariaWS> pWS2 = new ArrayList<PizzariaWS>();
@@ -256,12 +281,12 @@ public class ServidorController {
                     pWS.setMensagemPerfil(p.get(i).getMensagemPerfil());
                     pWS.setLatitude(p.get(i).getLatitude());
                     pWS.setLongitude(p.get(i).getLongitude());
-                    pWS.setFormaPagamento(p.get(i).getFormaPagamento().getDescricao());
+                    pWS.setFormaPagamento(p.get(i).getPizzariasFormasPagamento());
                     
                     pWS2.add(pWS);
                 }
                 
-                result.use(Results.xml()).from(pWS2).serialize();
+                result.use(Results.json()).withoutRoot().from(pWS2).include("formaPagamento").serialize();
             } else {
                 result.use(Results.xml()).from("Erro", "Erro").serialize();
             }
