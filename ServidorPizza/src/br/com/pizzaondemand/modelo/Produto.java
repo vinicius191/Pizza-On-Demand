@@ -15,13 +15,9 @@ public class Produto implements java.io.Serializable{
     @Id @GeneratedValue
     private Long id;
     private String detalhe;
-    private char tipo;
-    private Double preco1; 
-    private Double preco2; 
-    private Double preco3;
-    private String descricao;
-    private String extraDescricao;
-    private Double extraPreco;    
+    private int tipo;
+    private Double preco; 
+    private String descricao; 
     @ManyToOne
     private Pizzaria pizzaria;
     @OneToMany(mappedBy="produto")
@@ -45,36 +41,20 @@ public class Produto implements java.io.Serializable{
         this.detalhe = detalhe;
     }
 
-    public char getTipo() {
+    public int getTipo() {
         return tipo;
     }
 
-    public void setTipo(char tipo) {
+    public void setTipo(int tipo) {
         this.tipo = tipo;
     }
 
-    public Double getPreco1() {
-        return preco1;
+    public Double getPreco() {
+        return preco;
     }
 
-    public void setPreco1(Double preco1) {
-        this.preco1 = preco1;
-    }
-
-    public Double getPreco2() {
-        return preco2;
-    }
-
-    public void setPreco2(Double preco2) {
-        this.preco2 = preco2;
-    }
-
-    public Double getPreco3() {
-        return preco3;
-    }
-
-    public void setPreco3(Double preco3) {
-        this.preco3 = preco3;
+    public void setPreco(Double preco) {
+        this.preco = preco;
     }
 
     public String getDescricao() {
@@ -83,22 +63,6 @@ public class Produto implements java.io.Serializable{
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
-    }
-
-    public String getExtraDescricao() {
-        return extraDescricao;
-    }
-
-    public void setExtraDescricao(String extraDescricao) {
-        this.extraDescricao = extraDescricao;
-    }
-
-    public Double getExtraPreco() {
-        return extraPreco;
-    }
-
-    public void setExtraPreco(Double extraPreco) {
-        this.extraPreco = extraPreco;
     }
 
     public Pizzaria getPizzaria() {
@@ -125,5 +89,5 @@ public class Produto implements java.io.Serializable{
         this.produtoPedidos = produtoPedidos;
     }
 
-  
+    
 }

@@ -97,47 +97,15 @@
                                         </td>
                                     </tr>
                                     <tr style="height: 40px;">
-                                        <td style="font-size: 14px; padding-left: 3px;">Descricão de item extra: </td>
-                                        <td><input type="text" name="produto.extraDescricao" style="width: 60%; height: 20px; border: 1px solid #5a0805; padding-left: 3px;" /></td>
-                                    </tr>
-                                    <tr style="height: 40px;">
-                                        <td style="font-size: 14px; padding-left: 3px;">Preço do item extra: </td>
+                                        <td style="font-size: 14px; padding-left: 3px;">Preço : </td>
                                         <td>
-                                            <input type="text" name="produto.extraPreco" style="width: 40%; height: 20px; border: 1px solid #5a0805; padding-left: 3px;" />
-                                        </td>
-                                    </tr>
-                                    <tr style="height: 40px;">
-                                        <td style="font-size: 14px; padding-left: 3px;">Preço 1: </td>
-                                        <td>
-                                            <input type="text" name="produto.preco1" style="width: 40%; height: 20px; border: 1px solid #5a0805; padding-left: 3px;" />
+                                            <input type="text" name="produto.preco" style="width: 40%; height: 20px; border: 1px solid #5a0805; padding-left: 3px;" />
                                     </tr>
                                     <tr>
                                         <td colspan="2" style="text-align: center">
-                                            <span style="font-size: 11px;">(para pizza pequena - se o produto não for pizza, não preencha)</span>
+                                            <span style="font-size: 11px;">(coloque o valor da pizza ou outro produto)</span>
                                         </td>
                                     </tr> 
-                                    <tr style="height: 40px;">
-                                        <td style="font-size: 14px; padding-left: 3px;">Preço 2: </td>
-                                        <td>
-                                            <input type="text" name="produto.preco2" style="width: 40%; height: 20px; border: 1px solid #5a0805; padding-left: 3px;" />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2" style="text-align: center">
-                                            <span style="font-size: 11px;">(para pizza média - se o produto não for pizza, não preencha)</span>
-                                        </td>
-                                    </tr>
-                                    <tr style="height: 40px;">
-                                        <td style="font-size: 14px; padding-left: 3px;">Preço 3: </td>
-                                        <td>
-                                            <input type="text" name="produto.preco3"  style="width: 40%; height: 20px; border: 1px solid #5a0805; padding-left: 3px;" />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2" style="text-align: center">
-                                            <span style="font-size: 11px;">(para pizza grande - se o produto não for pizza, não preencha)</span>
-                                        </td>
-                                    </tr>
                                     <tr>
                                         <td colspan="2" style="height: 50px;"></td>
                                     </tr>    

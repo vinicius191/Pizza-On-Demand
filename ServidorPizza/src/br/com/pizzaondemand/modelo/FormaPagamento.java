@@ -9,7 +9,6 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 /**
@@ -61,9 +60,6 @@ public class FormaPagamento implements Serializable {
     public void setPizzariasFormasPagamento(List<PizzariaFormaPagamento> pizzariasFormasPagamento) {
         this.pizzariasFormasPagamento = pizzariasFormasPagamento;
     }
-
-
-
 
     
     

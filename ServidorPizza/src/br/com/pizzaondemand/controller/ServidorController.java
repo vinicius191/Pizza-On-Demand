@@ -32,10 +32,9 @@ import br.com.pizzaondemand.dao.PizzariaFormaPagamentoDAO;
 import br.com.pizzaondemand.dao.ProdutoDAO;
 import br.com.pizzaondemand.dao.UsuarioAndroidDAO;
 import br.com.pizzaondemand.diversos.AdministracaoEmail;
-import br.com.pizzaondemand.modelo.FormaPagamento;
 import br.com.pizzaondemand.modelo.Pedido;
-import br.com.pizzaondemand.modelo.PizzariaFormaPagamento;
 import br.com.pizzaondemand.modelo.PizzariaWS;
+import br.com.pizzaondemand.modelo.Produto;
 import br.com.pizzaondemand.modelo.UsuarioAndroid;
 
 import com.google.gson.Gson;
@@ -238,8 +237,8 @@ public class ServidorController {
         System.out.println("\n ============== ServidorController - listaPizzariasProximas =============\n");
         try {
             List<Pizzaria> p = pizzariaDAO.listaPizzariasProximas(latitude, longitude);
-            List<PizzariaFormaPagamento> pFP = pizzariaFormaPagamentoDAO.obtemListaFormasPagamentoPorPizzarias(p);
-            if(!p.contains("<pizzaria>")) {
+//            List<PizzariaFormaPagamento> pFP = pizzariaFormaPagamentoDAO.obtemListaFormasPagamentoPorPizzarias(p);
+            if(p == null) {
                 result.use(Results.xml()).from("Não há nenhuma Pizzaria próxima a sua localização.", "mensagem").serialize();
             } else {
                 PizzariaWS pWS = null;
@@ -247,15 +246,17 @@ public class ServidorController {
                 for(int i = 0; i < p.size(); i++) {
                     pWS = new PizzariaWS();
 
-                    pWS.setRazaoSocial(p.get(i).getRazao_social());
+                    pWS.setId(p.get(i).getId());
+                    pWS.setNomeFantasia(p.get(i).getNome_fantasia());
                     pWS.setMensagemPerfil(p.get(i).getMensagemPerfil());
                     pWS.setLatitude(p.get(i).getLatitude());
                     pWS.setLongitude(p.get(i).getLongitude());
-                    pWS.setFormaPagamento(p.get(i).getPizzariasFormasPagamento());
-                    
+//                    pWS.setFormaPagamento(p.get(i).getPizzariasFormasPagamento());
+
                     pWS2.add(pWS);
                 }
-                result.use(Results.json()).withoutRoot().from(pWS2).include("formaPagamento").serialize();
+//                result.use(Results.json()).withoutRoot().from(pWS2).include("formaPagamento").serialize();
+                result.use(Results.json()).withoutRoot().from(pWS2).serialize();
             }
         } catch (HibernateException e) {
             System.out.println("Erro ao receber a lista de Pizzarias: " + e.toString());
@@ -266,12 +267,32 @@ public class ServidorController {
     }
     
     @Public
+    @Get("/servidor/listaProdutosPorPizzaria/{pizzaria_id}")
+    public void listaProdutosPorPizzaria(Long pizzaria_id) {
+        System.out.println("\n ============== ServidorController - listaProdutosPorPizzaria =============\n");
+        try {
+            List<Produto> p = produtoDAO.obtemProdutoPorPizzariaId(pizzaria_id);
+            if(p.size() > 0) {
+                System.out.println("A Lista de Produtos não esta vazia... Enviando Lista...");
+                result.use(Results.json()).withoutRoot().from(p).serialize();
+            } else {
+                System.out.println("A Lista de Produtos esta VAZIA... Retornando json vazio para cliente...");
+                result.use(Results.json()).from("", "").serialize();
+            }
+        } catch (HibernateException e) {
+            System.out.println("Deus erro ao lista os Produto: " + e.toString());
+            result.use(Results.json()).from("", "").serialize();
+        }
+    }
+  /*  
+    @Public
     @Path("/servidor/listaPizzarias")
     public void listaPizzarias() {
         try {
             List<Pizzaria> p = pizzariaDAO.lista();
 //            List<PizzariaFormaPagamento> pFP = pizzariaFormaPagamentoDAO.obtemListaFormasPagamentoPorPizzarias(p);
-            Pizzaria pizzaria = new Pizzaria();
+            List<String> descricao = 
+//            Pizzaria pizzaria = new Pizzaria();
             PizzariaWS pWS = null;
             List<PizzariaWS> pWS2 = new ArrayList<PizzariaWS>();
             if(!p.contains("<pizzaria>")) {
@@ -296,7 +317,7 @@ public class ServidorController {
         
         
     }
-    
+    */
     @Public
     @Path("/mensagem")
     public void mensagem() {

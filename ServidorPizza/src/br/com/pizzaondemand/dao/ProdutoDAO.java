@@ -43,4 +43,9 @@ public class ProdutoDAO {
 //        tx = session.beginTransaction(); 
 //        tx.commit();
 //    }
+
+    public List<Produto> obtemProdutoPorPizzariaId(Long pizzaria_id) {
+        return (List<Produto>) session.createQuery("FROM Produto WHERE pizzaria_id = :pizzaria_id")
+                .setParameter("pizzaria_id", pizzaria_id).list();
+    }
 }

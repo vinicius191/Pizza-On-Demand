@@ -13,11 +13,12 @@ import java.util.List;
 public class PizzariaWS {
     
     private Long id;
-    private String razaoSocial;
+    private String nomeFantasia;
     private String mensagemPerfil;
     private Double latitude;
     private Double longitude;
     private List<PizzariaFormaPagamento> formaPagamento;
+    private List<String> pagamento;
 
     public Long getId() {
         return id;
@@ -27,13 +28,15 @@ public class PizzariaWS {
         this.id = id;
     }
 
-    public String getRazaoSocial() {
-        return razaoSocial;
+    public String getNomeFantasia() {
+        return nomeFantasia;
     }
 
-    public void setRazaoSocial(String razaoSocial) {
-        this.razaoSocial = razaoSocial;
+    public void setNomeFantasia(String nomeFantasia) {
+        this.nomeFantasia = nomeFantasia;
     }
+
+
 
     public String getMensagemPerfil() {
         return mensagemPerfil;
@@ -65,6 +68,14 @@ public class PizzariaWS {
 
     public void setFormaPagamento(List<PizzariaFormaPagamento> formaPagamento) {
         this.formaPagamento = formaPagamento;
+    }
+
+    public List<String> getPagamento() {
+        return pagamento;
+    }
+
+    public void setPagamento(List<String> pagamento) {
+        this.pagamento = pagamento;
     }
 
     
