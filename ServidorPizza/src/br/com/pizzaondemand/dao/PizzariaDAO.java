@@ -33,6 +33,10 @@ public class PizzariaDAO {
     public Pizzaria obtemPizzariaPorId(Long id) {
         return (Pizzaria) session.createQuery("FROM Pizzaria WHERE id = :id").setParameter("id", id).uniqueResult();
     }
+    
+    public Pizzaria obtemPizzariaPorEmail(String email) {
+        return (Pizzaria) session.createQuery("FROM Pizzaria WHERE email = :email").setParameter("email", email).uniqueResult();
+    }
 
     public void salvar(Pizzaria pizzaria) {
         System.out.println("PizzariaDAO: " + pizzaria.getEmail());
@@ -47,7 +51,17 @@ public class PizzariaDAO {
     public boolean verificaEmail(Pizzaria pizzaria) {
         Pizzaria p = (Pizzaria) session.createQuery("FROM Pizzaria WHERE email = :email").setParameter("email", pizzaria.getEmail()).uniqueResult();
     
+        return p != null;
+    }
+    
+    public boolean verificaEmailCadastro(Pizzaria pizzaria) {
+        Pizzaria p = (Pizzaria) session.createQuery("FROM Pizzaria WHERE email = :email").setParameter("email", pizzaria.getEmail()).uniqueResult();
+    
         return p == null;
+    }
+    
+    public Pizzaria recuperaSenha(Pizzaria pizzaria) {
+        return (Pizzaria) session.createQuery("FROM Pizzaria WHERE email = :email").setParameter("email", pizzaria.getEmail()).uniqueResult();
     }
     
     public List<Pizzaria> listaPizzariasProximas(Double lat_disp, Double lon_disp) {

@@ -44,6 +44,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import org.hibernate.HibernateException;
 import java.lang.reflect.Type;
+import java.util.Random;
 
 @Resource
 public class ServidorController {
@@ -73,7 +74,7 @@ public class ServidorController {
         this.formaPagamentoDAO = formaPagamentoDAO;
         this.pizzariaFormaPagamentoDAO = pizzariaFormaPagamentoDAO;
     }
-
+    
     @Public
     @Path("/servidor/listaUsuarios")
     public void listaUsuarios() {
@@ -382,11 +383,63 @@ public class ServidorController {
         return conteudo;
     }
     
+    public static String montaEmailRedefinicaoDeSenhaPizzaria(Pizzaria pizzaria) {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("Recuperação de senha <strong>Pizza - On Demand!</strong>.");
+        sb.append("<br />");
+        sb.append("<br />");
+        sb.append("Abaixo você encontra a confirmação da sua nova senha de acesso ao sistema.");
+        sb.append("<br />");
+        sb.append("<br />");
+        sb.append("<strong>Email:</strong> " + pizzaria.getEmail());
+        sb.append("<br />");
+        sb.append("<strong><b>Nova</b> Senha:</strong> " + pizzaria.getSenha());
+        sb.append("<br />");
+        sb.append("<br />");
+        sb.append("Utilize esta nova senha para fazer Login.");
+        sb.append("<br />");
+        sb.append("Após entrar você poderá redefinir a sua senha.");
+        sb.append("<br />");
+        sb.append("<br />");
+        sb.append("<br />");
+        sb.append("<strong>Equipe Pizza - On Demand!</strong>");
+        sb.append("<br />");
+
+        String conteudo = sb.toString();
+        
+        return conteudo;
+    }
+    
     @Public
     @Path("/servidor/listaUsuarioAndroid")
     public void listaUsuarioAndroid() {
     	List<UsuarioAndroid> lista = ususAndroidDAO.lista();
     	
     	result.use(Results.xml()).from(lista).serialize();
+    }
+
+    public static String geraHashAleatorio(int qtDigitos) {
+        int inicioNumeros = 48;
+        int inicioMaiusculas = 65;
+        int inicioMinusculas = 97;
+        char[] caracteres = new char[qtDigitos];
+        int valor;
+        for (int i = 0; i < qtDigitos; i++) {
+            Random r0 = new Random();
+            int tipo = r0.nextInt(3);
+            if (tipo == 0) {
+                valor = inicioNumeros + r0.nextInt(10);
+                caracteres[ i] = (char) (valor);
+            } else if (tipo == 1) {
+                valor = inicioMaiusculas + r0.nextInt(26);
+                caracteres[ i] = (char) (valor);
+            } else if (tipo == 2) {
+                valor = inicioMinusculas + r0.nextInt(26);
+                caracteres[ i] = (char) (valor);
+            }
+        }
+
+        return String.valueOf(caracteres);
     }
 }

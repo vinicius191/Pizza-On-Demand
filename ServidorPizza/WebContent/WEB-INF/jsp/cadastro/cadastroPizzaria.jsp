@@ -250,13 +250,7 @@
                             required: true,
                             email: true,
                             remote: {  
-                               url: "verificaEmail",  
-                               type: "post"
-//                               data: {
-//                                   "pizzaria.email": function() {
-//                                       return $("#pizzaria.email").val();
-//                                   }
-//                               }
+                               url: 'verificaEmailCadastro'
                             }
                         },
                         "pizzaria.senha": {

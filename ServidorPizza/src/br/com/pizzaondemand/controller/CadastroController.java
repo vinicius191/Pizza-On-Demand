@@ -11,6 +11,7 @@ import br.com.caelum.vraptor.view.Results;
 import br.com.pizzaondemand.modelo.Pizzaria;
 import br.com.pizzaondemand.dao.PizzariaDAO;
 import br.com.pizzaondemand.dao.ProdutoDAO;
+import br.com.pizzaondemand.diversos.AdministracaoEmail;
 import br.com.pizzaondemand.diversos.Imagens;
 import br.com.pizzaondemand.modelo.Produto;
 import br.com.pizzaondemand.modelo.UsuarioSession;
@@ -71,7 +72,36 @@ public class CadastroController {
             result.include("error", "Dados não foram salvos.").redirectTo(this).cadastroPizzaria();
         }
     }
+    
+    @Public
+    @Path("/recuperarSenha")
+    public void recuperarSenha(Pizzaria pizzaria) {
+        System.out.println("\n========== CadastroController - recuperarSenha ==========\n");
+        try {
+            if(pizzariaDAO.recuperaSenha(pizzaria) != null) {                
+                Pizzaria p = pizzariaDAO.obtemPizzariaPorEmail(pizzaria.getEmail());
+                
+                p.setSenha(ServidorController.geraHashAleatorio(6));
+                
+                pizzariaDAO.atualizar(montaPizzariaParaAtualizar(pizzaria, p));
+                
+                try {
+                    AdministracaoEmail.EnviarEmail("Recuperação de Senha - Pizza - On Demand!", ServidorController.montaEmailRedefinicaoDeSenhaPizzaria(p), p.getEmail());
+                } catch (Exception e) {
+                    System.out.println("Erro ao enviar emaill de Recuperação de Senha: " + e.toString());
+                }         
 
+                result.use(Results.json()).from(pizzariaDAO.recuperaSenha(pizzaria)).serialize();
+                
+            } else {
+                result.use(Results.json()).from("erro", "erro").serialize();
+            }
+        } catch (HibernateException e) {
+            System.out.println("Deu erro no recuperarSenha: " + e.toString());
+            result.notFound();
+        }
+    }
+    
     @Post("/atualizarPizzaria/{pizzaria.id}")
     public void atualizarPizzaria(Pizzaria pizzaria) {
         System.out.println("\n========== CadastroController - atualizaCadastro ==========\n");
@@ -216,10 +246,17 @@ public class CadastroController {
     }
     
     @Public
-    @Post("/verificaEmail")
+    @Path("/verificaEmail")
     public void verificaEmail(Pizzaria pizzaria) {
         System.out.println("Entrei em verifica email");
         result.use(Results.json()).withoutRoot().from(pizzariaDAO.verificaEmail(pizzaria)).serialize();
+    }
+    
+    @Public
+    @Path("/verificaEmailCadastro")
+    public void verificaEmailCadastro(Pizzaria pizzaria) {
+        System.out.println("Entrei em verifica email");
+        result.use(Results.json()).withoutRoot().from(pizzariaDAO.verificaEmailCadastro(pizzaria)).serialize();
     }
     
     @Public
