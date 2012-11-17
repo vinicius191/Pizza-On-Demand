@@ -2,10 +2,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head>
+        <!-- CSS -->
         <link href="css/style.css" rel="stylesheet" type="text/css" media="all">
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-        <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
-        <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+        <link href="css/jquery-ui-1.9.1.custom.min.css" rel="stylesheet" type="text/css" media="all">
+        <!-- Scripts -->
+        <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+        <script src="scripts/jquery-ui-1.9.1.custom.js"></script>
+        <script src="scripts/jquery-ui-1.9.1.custom.min.js"></script>
         <!-- Inclusão do Jquery Validate -->
         <script type="text/javascript" src="scripts/jquery.validate.js" ></script>
         <script type="text/javascript" src="scripts/jquery.maskedinput-1.3.js" ></script>
@@ -18,9 +21,8 @@
                 /*                visibility: hidden;*/
             }
             .ui-dialog {
-                border: 4px solid #5a0805;
-                color: #5a0805;
-            }
+                border: 6px solid #d49768;
+            }/*
             .ui-widget-header {
                 background-image: none;
                 background-color: #f4f2e9;
@@ -38,7 +40,7 @@
                 color: #5a0805;
                 font-weight: bold;
                 background-color: #f4f2e9;
-            }
+            }*/
 /*            .ui-dialog-titlebar {color:white!important;}*/
         </style>
 
@@ -202,7 +204,6 @@
           
             //Execute the function when window load
             $(document).ready(function() {
-//                alert("1");
                 var docHeight = $(window).height();
                 var footerHeight = $('#footer').height();
                 var footerTop = $('#footer').position().top + footerHeight;
@@ -231,10 +232,30 @@
                         new_sp_phone ? $(currentField).mask('(00) 00000-0000', options) : $(currentField).mask('(00) 0000-0000', options)
                     }
                 });
-                
+
+
+                $("#dialog-validation").dialog({
+                    position: ['middle',20],
+                    modal: false,
+                    autoOpen: false,
+                    title: "Verifique os campos abaixo",
+                    width: 380,
+                    resizable: false,
+                    buttons: { 
+                        Fechar: function() {
+                            $(this).text("");
+                            $(this).dialog("close");
+                        }
+                    },
+                    close: function() {
+                        $(this).text("");
+                    }
+                });
+
                 $('#formularioCadastroPizzaria').validate({
-                    errorPlacement: function(error, element) {
+                    errorPlacement: function(error) {
                         error.prependTo('#dialog-validation');
+                        $("#dialog-validation").dialog("open");
                     },
                     errorLabelContainer: $("dialog-validation ul"),
                     onblur: false,
@@ -242,7 +263,7 @@
                     onsubmit: true,
                     onfocusout: false,
                     onclick: false,
-                    debug: true,
+                    debug: false,
                     sucess: "valid",
                     wrapper: "li",
                     rules:{
@@ -254,8 +275,7 @@
                             }
                         },
                         "pizzaria.senha": {
-                            required: true,
-                            min: 6
+                            required: true
                         },
                         "pizzaria.razao_social": {
                             required: true
@@ -286,9 +306,6 @@
                         "pizzaria.cidade": {
                             required: true
                         },
-//                        'pizzaria.estado': function(element) {
-//                             return $("#pizzaria.estado").val() == "";
-//                         }
                         "pizzaria.estado": {
                             required: true
                         }
@@ -301,9 +318,8 @@
                             remote: "O <b>Email da Pizzaria</b> informado ja esta em uso."
                         },
                         "pizzaria.senha": {
-                            required: "O campo <b>Senha</b> é obrigatorio.",
-                            min: "O campo <b>Senha</b> precisa ter pelo menos 6 caracteres.",
-                            max: "O campo <b>Senha</b> precisa ter no máximo 12 caracteres."
+                            required: "O campo <b>Senha</b> é obrigatório."
+//                            min: "O campo <b>Senha</b> precisa ter pelo menos 6 caracteres."
                         },
                         "pizzaria.razao_social": {
                             required: "O campo <b>Razão Social</b> é obrigatório."
@@ -316,11 +332,11 @@
                         },
                         "pizzaria.latitude": {
                             required: "O campo <b>Latitude</b> é obrigatório.",
-                            min: "Verifique a formatação do campo <b>Latitude.</b>"
+                            number: "Verifique a formatação do campo <b>Latitude.</b>"
                         },
                         "pizzaria.longitude": {
                             required: "O campo <b>Longitude</b> é obrigatório.",
-                            min: "Verifique a formatação do campo <b>Latitude.</b>"
+                            number: "Verifique a formatação do campo <b>Latitude.</b>"
                         },
                         "pizzaria.endereco": {
                             required: "O campo <b>Endereço da Pizzaria</b> é obrigatório."
@@ -340,35 +356,10 @@
                     },
                     showErrors: function() {
                         this.defaultShowErrors();
-                        $("#dialog-validation").dialog('open');
-//                        alert("abriu");
-                        
+//                        $("#dialog-validation").dialog('open');
                     }    
                 });        
     
-            
-                $(function() {
-                $("#dialog-validation").dialog({
-                    position: ['middle',20],
-                    modal: false,
-                    autoOpen: false,
-                    title: "Verifique os campos abaixo",
-                    width: 380,
-                    resizable: false,
-                    buttons: { 
-                        Fechar: function() {
-                            $(this).text("");
-                            $(this).dialog("close");
-                        }
-                    },
-                    close: function() {
-                        $(this).text("");
-                    }
-                });
-            }); 
-    
-
-
             });
             
 //            jQuery(function($){

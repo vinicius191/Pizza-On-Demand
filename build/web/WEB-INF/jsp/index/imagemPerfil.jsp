@@ -3,12 +3,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head>
-        <link href="css/style.css" rel="stylesheet" type="text/css" media="all">
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-        <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
-        <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
-        <!-- Inclusão do Jquery Validate -->
-        <script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery.validate/1.6/jquery.validate.js" ></script>
         <title>Pizza - On Demand! | Editar Imagem do Perfil</title>
     </head>
     <body>
@@ -67,7 +61,7 @@
                                     <legend style="padding: 0 10px;">Upload de Imagem</legend>
                                     <table>
                                         <tr>
-                                            <td><input type="file" name="imagem" /></td>
+                                            <td><input type="file" name="imagem" id="imagem" /></td>
                                         </tr>
                                     </table>
                                 <input type="submit" id="enviar" value="Enviar" style="width: 80px; font-size: 14px; color: white; height: 30px; background-color: #b96d69; border: 0px; margin: 10px;" />
@@ -86,6 +80,8 @@
                 <tr>
                 </tr>
             </table>
+            <div style="display: none;" id="dialog-validation" class="errorList">
+            </div>
             <div style="display: none;" id="dialog" class="errorList"></div>
             <div id="footer">
                 Copyright 2012 © Pizza - On Demand! - Todos os direitos Reservados.
@@ -104,6 +100,46 @@
                     $('#footer').css('margin-top', 10 + (docHeight - footerTop) + 'px');
                 }
             });
+            
+            $("#imagem").change(function() {
+
+               var val = $(this).val();
+               var valor = val.substring(val.lastIndexOf('.') + 1).toLowerCase();
+               var size = $("#imagem")[0].files[0].size;
+               
+               if(valor !== 'gif' && valor !== 'jpg' && valor !== 'png') {
+                  $("#dialog-validation").append("A imagem selecionada precisa ser dos tipos: <b>JPG, GIF ou PNG.</b><br>");
+                  $("#dialog-validation").dialog("open"); 
+                  $(this).val("");
+               }
+               
+               if(size > 1500000) {
+                  $("#dialog-validation").append("<br>O tamanho máximo da imagem é de <b>1.5M.</b>");
+                  $("#dialog-validation").dialog("open");
+                  $(this).val("");
+               }
+
+           });
+       
+            $(function() {
+            $("#dialog-validation").dialog({
+                position: ['middle',20],
+                modal: false,
+                autoOpen: false,
+                title: "Verifique os campos abaixo",
+                width: 380,
+                resizable: false,
+                buttons: { 
+                    Fechar: function() {
+                        $(this).text("");
+                        $(this).dialog("close");
+                    }
+                },
+                close: function() {
+                    $(this).text("");
+                }
+            });
+            });    
         </script>
 
     </body>

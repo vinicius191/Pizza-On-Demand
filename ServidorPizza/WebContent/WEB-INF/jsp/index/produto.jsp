@@ -72,40 +72,31 @@
                                         <td colspan="2" style="padding-top: 20px; border-bottom: 1px solid #773e3c; font-size: 14px; font-weight: bold; padding-bottom: 10px;">Cadastro de produtos</td>
                                     </tr>
                                     <tr><td colspan="2" style="height: 20px;"></td></tr>
-                                    <tr>
-                                        <td style="font-size: 14px; padding-left: 3px;" width="180px">Tipo do produto: </td>
-                                        <td><input type="text" name="produto.tipo" id="produto.tipo" style="width: 60%; height: 20px; border: 1px solid #5a0805; padding-left: 3px;" />
-                                        </td>                                        
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2" style="text-align: center">
-                                            <span style="font-size: 11px;">(1 - Pizza, 2 - Bebidas, 3 - Outros)</span>
-                                        </td>
-                                    </tr> 
                                     <tr style="height: 40px;">
-                                        <td style="font-size: 14px; padding-left: 3px;">Titulo do produto: </td>
-                                        <td>
+                                        <td style="font-size: 14px; padding-left: 3px;" width="150px">Tipo do produto:
+                                            <!--<input type="text" name="produto.tipo" id="produto.tipo" style="width: 60%; height: 20px; border: 1px solid #5a0805; padding-left: 3px;" />-->
+                                            <select name="produto.tipo" style="width: 25%; height: 20px; border: 1px solid #5a0805; padding-left: 3px;">
+                                                <option value="1">1 - Pizza</option>
+                                                <option value="2">2 - Bebidas</option>
+                                                <option value="3">3 - Outros</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr style="height: 40px;">
+                                        <td style="font-size: 14px; padding-left: 3px;">Titulo do produto:
                                             <input type="text" name="produto.descricao" id="produto.descricao" style="width: 40%; height: 20px; border: 1px solid #5a0805; padding-left: 3px;" />
-                                            
                                         </td>
                                     </tr>
                                     <tr style="height: 40px;">
-                                        <td style="font-size: 14px; padding-left: 3px;">Detalhe do produto: </td>
-                                        <td>
+                                        <td style="font-size: 14px; padding-left: 3px;">Ingredientes:
                                             <input type="text" name="produto.detalhe" id="produto.detalhe" style="width: 40%; height: 20px; border: 1px solid #5a0805; padding-left: 3px;" />
-                                            
                                         </td>
                                     </tr>
                                     <tr style="height: 40px;">
-                                        <td style="font-size: 14px; padding-left: 3px;">Preço : </td>
-                                        <td>
+                                        <td style="font-size: 14px; padding-left: 3px;">Preço:
                                             <input type="text" name="produto.preco" style="width: 40%; height: 20px; border: 1px solid #5a0805; padding-left: 3px;" />
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2" style="text-align: center">
-                                            <span style="font-size: 11px;">(coloque o valor da pizza ou outro produto)</span>
                                         </td>
-                                    </tr> 
+                                    </tr>
                                     <tr>
                                         <td colspan="2" style="height: 50px;"></td>
                                     </tr>    

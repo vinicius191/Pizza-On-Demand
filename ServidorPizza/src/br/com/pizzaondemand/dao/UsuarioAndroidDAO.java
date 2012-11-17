@@ -41,4 +41,8 @@ public class UsuarioAndroidDAO {
 
         return u != null;
     }
+    
+    public UsuarioAndroid obtemUsuarioAndroidPorIMEI(UsuarioAndroid usuarioAndroid) {
+        return (UsuarioAndroid) session.createQuery("FROM UsuarioAndroid WHERE id = :id").setParameter("id", usuarioAndroid.getId()).uniqueResult();
+    }
 }

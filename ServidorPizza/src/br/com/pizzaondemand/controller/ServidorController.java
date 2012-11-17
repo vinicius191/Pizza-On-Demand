@@ -419,6 +419,45 @@ public class ServidorController {
     	result.use(Results.xml()).from(lista).serialize();
     }
 
+    
+    @Public
+    @Path("/servidor/recuperarSenhaUsuarioAndroid/{usuarioAndroid.email}")
+    public void recuperarSenhaUsuarioAndroid(UsuarioAndroid usuarioAndroid) {
+        System.out.println("\n========== ServidorController - recuperarSenhaAndroid ==========\n");
+        try {
+            if(!ususAndroidDAO.verificaIMEI(usuarioAndroid)) {
+                UsuarioAndroid u = ususAndroidDAO.obtemUsuarioAndroidPorIMEI(usuarioAndroid);
+
+                result.use(Results.json()).from(u).serialize();
+                
+            } else {
+                result.use(Results.json()).from("").serialize();
+            }
+        } catch (HibernateException e) {
+            System.out.println("Deu erro no recuperarSenhaAndroid: " + e.toString());
+            result.notFound();
+        }
+    }  
+    
+    @Public
+    @Path("/servidor/verificarUsuarioAndroid/{usuarioAndroid.id}")
+    public void verificarUsuarioAndroid(UsuarioAndroid usuarioAndroid) {
+        System.out.println("\n========== ServidorController - verificaUsuarioAndroid ==========\n");
+        try {
+            if(!ususAndroidDAO.verificaIMEI(usuarioAndroid)) {
+                UsuarioAndroid u = ususAndroidDAO.obtemUsuarioAndroidPorIMEI(usuarioAndroid);
+
+                result.use(Results.json()).from(u).serialize();
+                
+            } else {
+                result.use(Results.json()).from("").serialize();
+            }
+        } catch (HibernateException e) {
+            System.out.println("Deu erro no recuperarSenhaAndroid: " + e.toString());
+            result.notFound();
+        }
+    }    
+    
     public static String geraHashAleatorio(int qtDigitos) {
         int inicioNumeros = 48;
         int inicioMaiusculas = 65;

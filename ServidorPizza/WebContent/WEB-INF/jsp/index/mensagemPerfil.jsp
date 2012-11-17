@@ -1,14 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head>
-        <link href="css/style.css" rel="stylesheet" type="text/css" media="all">
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-        <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
-        <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
-        <!-- Inclusão do Jquery Validate -->
-        <script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery.validate/1.6/jquery.validate.js" ></script>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Pizza - On Demand! | Editar Mensagem do Perfil</title>
     </head>
     <body>
@@ -85,7 +80,7 @@
             <div style="display: none;" id="dialog" class="errorList"></div>
             <div style="display: none;" id="msg"></div>
             <div id="footer">
-                Copyright 2012 © Pizza - On Demand! - Todos os direitos Reservados.
+                Copyright 2012 Â© Pizza - On Demand! - Todos os direitos Reservados.
             </div>
         </div>
 
