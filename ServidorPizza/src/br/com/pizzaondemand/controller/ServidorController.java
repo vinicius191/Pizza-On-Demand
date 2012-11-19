@@ -1,8 +1,8 @@
 /*
-* 
-*   Teste de envio do arquivo 2
-* 
-*/
+ * 
+ *   Teste de envio do arquivo 2
+ * 
+ */
 package br.com.pizzaondemand.controller;
 
 import br.com.caelum.vraptor.Consumes;
@@ -35,10 +35,14 @@ import br.com.pizzaondemand.diversos.AdministracaoEmail;
 import br.com.pizzaondemand.modelo.Pedido;
 import br.com.pizzaondemand.modelo.PizzariaWS;
 import br.com.pizzaondemand.modelo.Produto;
+import br.com.pizzaondemand.modelo.ProdutoPedido;
 import br.com.pizzaondemand.modelo.UsuarioAndroid;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -62,7 +66,7 @@ public class ServidorController {
             Result result,
             PedidoDAO pedidoDAO,
             ProdutoDAO produtoDAO,
-            UsuarioAndroidDAO usuarioAndroidDAO, 
+            UsuarioAndroidDAO usuarioAndroidDAO,
             PizzariaFormaPagamentoDAO pizzariaFormaPagamentoDAO,
             FormaPagamentoDAO formaPagamentoDAO) {
 
@@ -74,7 +78,7 @@ public class ServidorController {
         this.formaPagamentoDAO = formaPagamentoDAO;
         this.pizzariaFormaPagamentoDAO = pizzariaFormaPagamentoDAO;
     }
-    
+
     @Public
     @Path("/servidor/listaUsuarios")
     public void listaUsuarios() {
@@ -91,7 +95,7 @@ public class ServidorController {
             String resultado = "Dados recebidos";
             System.out.println("Recebi o ID: " + id);
             System.out.println("Com status: " + status);
-            
+
             try {
                 Pedido p = pedidoDAO.obtemPedidoPorId(id);
                 p.setStatus(status);
@@ -102,12 +106,12 @@ public class ServidorController {
                 System.out.println("Deu erro ao obter ou salvar o pedido: " + e.toString());
                 result.use(Results.json()).withoutRoot().from(resultado).serialize();
             }
-            
+
             result.use(Results.json()).withoutRoot().from(resultado).serialize();
-            
+
         }
     }
-    
+
     @Public
     @Path("/servidor/testeRecebimentoParametros/{id}/")
     public void testeRecebimentoParametros(String data) {
@@ -138,50 +142,49 @@ public class ServidorController {
     }
 
     /*
-    @Public
-    @Path("/servidor/listaPedidos")
-    public void listaPedidos() {
-        List<Pedido> listaPedidos = pedidoDAO.listaDisponiveis();
-        List<PedidoWS> pWS2 = new ArrayList<PedidoWS>();
-        PedidoWS pWS = null;
-        StringBuilder sB = new StringBuilder();
-        List<String> descricao = new ArrayList<String>();
+     @Public
+     @Path("/servidor/listaPedidos")
+     public void listaPedidos() {
+     List<Pedido> listaPedidos = pedidoDAO.listaDisponiveis();
+     List<PedidoWS> pWS2 = new ArrayList<PedidoWS>();
+     PedidoWS pWS = null;
+     StringBuilder sB = new StringBuilder();
+     List<String> descricao = new ArrayList<String>();
         
-        for(int i = 0; i < listaPedidos.size(); i++) {
-            pWS = new PedidoWS();
-            pWS.setId(listaPedidos.get(i).getId());
-            pWS.setEnderecoEntrega(listaPedidos.get(i).getEnderecoEntrega());
-            pWS.setQuantidade(listaPedidos.get(i).getQuantidade());
-            pWS.setProduto(listaPedidos.get(i).getProduto().getDescricao());
-            pWS.setStatus(listaPedidos.get(i).getStatus());
-            pWS.setUsuarioAndroid(listaPedidos.get(i).getUsuarioAndroid().getNome());
+     for(int i = 0; i < listaPedidos.size(); i++) {
+     pWS = new PedidoWS();
+     pWS.setId(listaPedidos.get(i).getId());
+     pWS.setEnderecoEntrega(listaPedidos.get(i).getEnderecoEntrega());
+     pWS.setQuantidade(listaPedidos.get(i).getQuantidade());
+     pWS.setProduto(listaPedidos.get(i).getProduto().getDescricao());
+     pWS.setStatus(listaPedidos.get(i).getStatus());
+     pWS.setUsuarioAndroid(listaPedidos.get(i).getUsuarioAndroid().getNome());
             
-            pWS2.add(pWS);
-        }
+     pWS2.add(pWS);
+     }
         
-//        result.use(Results.json()).withoutRoot().from(listaPedidos).include("produto.detalhe").serialize();
-        result.use(Results.json()).withoutRoot().from(pWS2).serialize();
-    }
-    */
+     //        result.use(Results.json()).withoutRoot().from(listaPedidos).include("produto.detalhe").serialize();
+     result.use(Results.json()).withoutRoot().from(pWS2).serialize();
+     }
+     */
 
     /*
-    @Public
-    @Path("/servidor/listaPedidosJSON")
-    public void listaPedidosJSON() {
-        List<Pedido> listaPedidos = pedidoDAO.lista();
+     @Public
+     @Path("/servidor/listaPedidosJSON")
+     public void listaPedidosJSON() {
+     List<Pedido> listaPedidos = pedidoDAO.lista();
         
-        JSONObject obj = new JSONObject();
+     JSONObject obj = new JSONObject();
         
-        for(int i = 0; i < listaPedidos.size(); i++) {
-            obj.put("id", listaPedidos.get(i).getId());
-            obj.put("descricao", listaPedidos.get(i).getProduto().getDescricao());
-        }
+     for(int i = 0; i < listaPedidos.size(); i++) {
+     obj.put("id", listaPedidos.get(i).getId());
+     obj.put("descricao", listaPedidos.get(i).getProduto().getDescricao());
+     }
         
-        String teste = obj.toString();
-        result.use(Results.json()).from(teste).serialize();
-    }
-    */
-    
+     String teste = obj.toString();
+     result.use(Results.json()).from(teste).serialize();
+     }
+     */
     @Public
     @Get("/servidor/recebePedido/{pedido}")
     public void recebePedido(PedidoWS pedidoWS) {
@@ -189,28 +192,28 @@ public class ServidorController {
     }
 
     @Public
-    @Consumes(value={"application/json", "application/x-www-form-urlencoded"})
+    @Consumes(value = {"application/json", "application/x-www-form-urlencoded"})
     @Post("/servidor/salvaUsuario")
     public void salvaUsuarioAndroid(UsuarioAndroid usuario) {
-    	System.out.println("Entrei em ======== SalvaUsuarioAndroid");
+        System.out.println("Entrei em ======== SalvaUsuarioAndroid");
         try {
-            
+
             System.out.println("Usuario que chegou (id): " + usuario.getId());
             System.out.println("Usuario que chegou (nome): " + usuario.getNome());
             System.out.println("Usuario que chegou (email): " + usuario.getEmail());
-            
+
             try {
-                
-                if(ususAndroidDAO.verificaIMEI(usuario)) {
-                    System.out.println("Já existe um IMEI cadastrado!!");                    
+
+                if (ususAndroidDAO.verificaIMEI(usuario)) {
+                    System.out.println("Já existe um IMEI cadastrado!!");
 //                    result.use(Results.json()).from("codigo", "1").serialize();
                     result.use(Results.status()).badRequest("");
 //                    
                 } else {
                     System.out.println("Não existe um IMEI cadastrado.. Programa pode continuar");
                     ususAndroidDAO.salvar(usuario);
-                    result.use(Results.json()).from("codigo", "2").serialize();                   
- 
+                    result.use(Results.json()).from("codigo", "2").serialize();
+
                     try {
                         AdministracaoEmail.EnviarEmail("Cadastro - Pizza - On Demand!", montaEmailCadastroUsuario(usuario), usuario.getEmail());
                         result.use(Results.json()).from("codigo", "3").serialize();
@@ -218,20 +221,20 @@ public class ServidorController {
                         System.out.println("Erro ao enviar emaill no cadastro do UsuarioAndroid: " + e.toString());
                         result.use(Results.json()).from("codigo", "4").serialize();
                     }
-                
+
                 }
             } catch (HibernateException e) {
                 System.out.println("Deu erro ao salvar o usuario: " + e.toString());
                 result.use(Results.json()).from("codigo", "5").serialize();
             }
-            
+
         } catch (Exception e) {
             System.out.println("Erro ao salvar UsuarioAndroid: " + e.toString());
             result.use(Results.json()).from("codigo", "6").serialize();
         }
 
     }
-    
+
     @Public
     @Get("/servidor/listaPizzariasProximas/{latitude}/{longitude}")
     public void listaPizzariaProximas(Double latitude, Double longitude) {
@@ -239,12 +242,12 @@ public class ServidorController {
         try {
             List<Pizzaria> p = pizzariaDAO.listaPizzariasProximas(latitude, longitude);
 //            List<PizzariaFormaPagamento> pFP = pizzariaFormaPagamentoDAO.obtemListaFormasPagamentoPorPizzarias(p);
-            if(p == null) {
+            if (p == null) {
                 result.use(Results.xml()).from("Não há nenhuma Pizzaria próxima a sua localização.", "mensagem").serialize();
             } else {
                 PizzariaWS pWS = null;
                 List<PizzariaWS> pWS2 = new ArrayList<PizzariaWS>();
-                for(int i = 0; i < p.size(); i++) {
+                for (int i = 0; i < p.size(); i++) {
                     pWS = new PizzariaWS();
 
                     pWS.setId(p.get(i).getId());
@@ -264,18 +267,18 @@ public class ServidorController {
 //            result.use(Results.json()).from("Tivemos um problema ao pesquisar as Pizzarias. Tente novamente mais tarde.", "mensagem").serialize();
             result.use(Results.json()).from("", "").serialize();
         }
-        
+
     }
-    
+
     @Public
     @Get("/servidor/listaProdutosPorPizzaria/{pizzaria_id}")
     public void listaProdutosPorPizzaria(Long pizzaria_id) {
         System.out.println("\n ============== ServidorController - listaProdutosPorPizzaria =============\n");
         try {
             List<Produto> p = produtoDAO.obtemProdutoPorPizzariaId(pizzaria_id);
-            if(p.size() > 0) {
+            if (p.size() > 0) {
                 System.out.println("A Lista de Produtos não esta vazia... Enviando Lista...");
-                result.use(Results.json()).withoutRoot().from(p).serialize();
+                result.use(Results.json()).from(p).serialize();
             } else {
                 System.out.println("A Lista de Produtos esta VAZIA... Retornando json vazio para cliente...");
                 result.use(Results.json()).from("", "").serialize();
@@ -285,49 +288,71 @@ public class ServidorController {
             result.use(Results.json()).from("", "").serialize();
         }
     }
-  /*  
+
     @Public
-    @Path("/servidor/listaPizzarias")
-    public void listaPizzarias() {
+    @Consumes(value = {"application/json", "application/x-www-form-urlencoded"})
+    @Path("/servidor/recebePedidoAndroid")
+    public void recebePedidoAndroid(Pedido pedido) {
+        System.out.println("\n ============== ServidorController - recebePedidoAndroid =============\n");
         try {
-            List<Pizzaria> p = pizzariaDAO.lista();
-//            List<PizzariaFormaPagamento> pFP = pizzariaFormaPagamentoDAO.obtemListaFormasPagamentoPorPizzarias(p);
-            List<String> descricao = 
-//            Pizzaria pizzaria = new Pizzaria();
-            PizzariaWS pWS = null;
-            List<PizzariaWS> pWS2 = new ArrayList<PizzariaWS>();
-            if(!p.contains("<pizzaria>")) {
-                for(int i = 0; i < p.size(); i++) {
-                    pWS = new PizzariaWS();
-                    pWS.setRazaoSocial(p.get(i).getRazao_social());
-                    pWS.setMensagemPerfil(p.get(i).getMensagemPerfil());
-                    pWS.setLatitude(p.get(i).getLatitude());
-                    pWS.setLongitude(p.get(i).getLongitude());
-                    pWS.setFormaPagamento(p.get(i).getPizzariasFormasPagamento());
-                    
-                    pWS2.add(pWS);
-                }
-                
-                result.use(Results.json()).withoutRoot().from(pWS2).include("formaPagamento").serialize();
-            } else {
-                result.use(Results.xml()).from("Erro", "Erro").serialize();
+            if(pedido != null) {
+                pedidoDAO.salva(pedido);
             }
-        } catch (Exception e) {
-            System.out.println("Deu erro: " + e.toString());
+            System.out.println("Pedido - Data do Pedido: " + pedido.getDataPedido());
+            System.out.println("Pedido - Endereço Entrega: " + pedido.getEnderecoEntrega());
+            System.out.println("Pedido - Status: " + pedido.getStatus());
+            System.out.println("Pedido - Forma de Pagamento: " + pedido.getFormaPagamento().getId());
+            System.out.println("Pedido - Valor: " + pedido.getValor());
+            System.out.println("Pedido - Troco: " + pedido.getTroco());
+            System.out.println("Pedido - Pizzaria: " + pedido.getPizzaria().getId());
+            System.out.println("Pedido - Descricao: " + pedido.getDescricao());
+            System.out.println("Pedido - UsuarioAndroid: " + pedido.getUsuarioAndroid().getId());
+
+        } catch (NullPointerException e) {
+            System.out.println("Deu erro ao receber classe Pedido: " + e.toString());
         }
-        
-        
     }
-    */
+    /*  
+     @Public
+     @Path("/servidor/listaPizzarias")
+     public void listaPizzarias() {
+     try {
+     List<Pizzaria> p = pizzariaDAO.lista();
+     //            List<PizzariaFormaPagamento> pFP = pizzariaFormaPagamentoDAO.obtemListaFormasPagamentoPorPizzarias(p);
+     List<String> descricao = 
+     //            Pizzaria pizzaria = new Pizzaria();
+     PizzariaWS pWS = null;
+     List<PizzariaWS> pWS2 = new ArrayList<PizzariaWS>();
+     if(!p.contains("<pizzaria>")) {
+     for(int i = 0; i < p.size(); i++) {
+     pWS = new PizzariaWS();
+     pWS.setRazaoSocial(p.get(i).getRazao_social());
+     pWS.setMensagemPerfil(p.get(i).getMensagemPerfil());
+     pWS.setLatitude(p.get(i).getLatitude());
+     pWS.setLongitude(p.get(i).getLongitude());
+     pWS.setFormaPagamento(p.get(i).getPizzariasFormasPagamento());
+                    
+     pWS2.add(pWS);
+     }
+                
+     result.use(Results.json()).withoutRoot().from(pWS2).include("formaPagamento").serialize();
+     } else {
+     result.use(Results.xml()).from("Erro", "Erro").serialize();
+     }
+     } catch (Exception e) {
+     System.out.println("Deu erro: " + e.toString());
+     }
+        
+        
+     }
+     */
+
     @Public
     @Path("/mensagem")
     public void mensagem() {
-//        result.use(Results.http()).body("Parabens! Dados salvos.");
-//        JSONObject obj = new JSONObject();
-//        obj.put("codigo", 1);
         result.use(Results.xml()).from("codigo", "1").serialize();
     }
-    
+
     @Public
     @Get("/servidor/salvaUsuarioGet/{json}")
     public void salvaUsuarioGet(String json) {
@@ -336,14 +361,15 @@ public class ServidorController {
             UsuarioAndroid usuarioAndroid = new UsuarioAndroid();
 
             Gson gson = new GsonBuilder().serializeNulls().create();
-            Type collectionType = new TypeToken<Collection<UsuarioAndroid>>() {}.getType();
+            Type collectionType = new TypeToken<Collection<UsuarioAndroid>>() {
+            }.getType();
 
             usuarioAndroid = gson.fromJson(json, UsuarioAndroid.class);
 
             System.out.println("Usuario que eu montei: " + usuarioAndroid.getNome());
 
             ususAndroidDAO.salvar(usuarioAndroid);
-            
+
             try {
                 AdministracaoEmail.EnviarEmail("Cadastro - Pizza - On Demand!", montaEmailCadastroUsuario(usuarioAndroid), usuarioAndroid.getEmail());
             } catch (Exception e) {
@@ -352,13 +378,13 @@ public class ServidorController {
 //            
             result.use(Results.json()).from("mensagem", "Dados salvos com sucesso!").serialize();
 //            result.include("mensagem", "Dados salvas com sucesso!");
-           
+
         } catch (Exception e) {
             System.out.println("Erro ao salvar UsuarioAndroid: " + e.toString());
         }
 
     }
-    
+
     public static String montaEmailCadastroUsuario(UsuarioAndroid usuario) {
         StringBuilder sb = new StringBuilder();
 
@@ -379,10 +405,10 @@ public class ServidorController {
         sb.append("<br />");
 
         String conteudo = sb.toString();
-        
+
         return conteudo;
     }
-    
+
     public static String montaEmailRedefinicaoDeSenhaPizzaria(Pizzaria pizzaria) {
         StringBuilder sb = new StringBuilder();
 
@@ -407,29 +433,28 @@ public class ServidorController {
         sb.append("<br />");
 
         String conteudo = sb.toString();
-        
+
         return conteudo;
     }
-    
+
     @Public
     @Path("/servidor/listaUsuarioAndroid")
     public void listaUsuarioAndroid() {
-    	List<UsuarioAndroid> lista = ususAndroidDAO.lista();
-    	
-    	result.use(Results.xml()).from(lista).serialize();
+        List<UsuarioAndroid> lista = ususAndroidDAO.lista();
+
+        result.use(Results.xml()).from(lista).serialize();
     }
 
-    
     @Public
     @Path("/servidor/recuperarSenhaUsuarioAndroid/{usuarioAndroid.email}")
     public void recuperarSenhaUsuarioAndroid(UsuarioAndroid usuarioAndroid) {
         System.out.println("\n========== ServidorController - recuperarSenhaAndroid ==========\n");
         try {
-            if(!ususAndroidDAO.verificaIMEI(usuarioAndroid)) {
+            if (!ususAndroidDAO.verificaIMEI(usuarioAndroid)) {
                 UsuarioAndroid u = ususAndroidDAO.obtemUsuarioAndroidPorIMEI(usuarioAndroid);
 
                 result.use(Results.json()).from(u).serialize();
-                
+
             } else {
                 result.use(Results.json()).from("").serialize();
             }
@@ -437,18 +462,18 @@ public class ServidorController {
             System.out.println("Deu erro no recuperarSenhaAndroid: " + e.toString());
             result.notFound();
         }
-    }  
-    
+    }
+
     @Public
     @Path("/servidor/verificarUsuarioAndroid/{usuarioAndroid.id}")
     public void verificarUsuarioAndroid(UsuarioAndroid usuarioAndroid) {
         System.out.println("\n========== ServidorController - verificaUsuarioAndroid ==========\n");
         try {
-            if(!ususAndroidDAO.verificaIMEI(usuarioAndroid)) {
+            if (!ususAndroidDAO.verificaIMEI(usuarioAndroid)) {
                 UsuarioAndroid u = ususAndroidDAO.obtemUsuarioAndroidPorIMEI(usuarioAndroid);
 
                 result.use(Results.json()).from(u).serialize();
-                
+
             } else {
                 result.use(Results.json()).from("").serialize();
             }
@@ -456,8 +481,8 @@ public class ServidorController {
             System.out.println("Deu erro no recuperarSenhaAndroid: " + e.toString());
             result.notFound();
         }
-    }    
-    
+    }
+
     public static String geraHashAleatorio(int qtDigitos) {
         int inicioNumeros = 48;
         int inicioMaiusculas = 65;

@@ -72,14 +72,23 @@ public class IndexController {
         result.include("pizzaria", pizzaria);
     }
     
-    @Get("/edita")
-    public void edita() {
-        System.out.println("\n========== IndexController - edita ==========\n");
+    @Get("/editar")
+    public void editar() {
+        System.out.println("\n========== IndexController - editar ==========\n");
         Pizzaria pizzaria = pizzariaDAO.obtemPizzariaPorId(usuarioSession.getUser().getId());
+        List<FormaPagamento> fP = formaPagamentoDAO.lista();
         System.out.println("A senha que esta sendo enviada para o Edita Cadastro: " + pizzaria.getSenha());
         result.include("pizzaria", pizzaria);
+        result.include("listaFormaPagamento", fP);
     }
 
+    @Get("/editarEmailSenha")
+    public void editarEmailSenha() {
+        System.out.println("\n========== IndexController - editarEmailSenha ==========\n");
+        Pizzaria pizzaria = pizzariaDAO.obtemPizzariaPorId(usuarioSession.getUser().getId());
+        result.include("pizzaria", pizzaria);
+    }
+    
     @Get("/produto")
     public void produto() {
         System.out.println("\n========== IndexController - produto ==========\n");
@@ -91,7 +100,8 @@ public class IndexController {
     @Get("/listaProduto")
     public void listaProduto() {
        System.out.println("\n========== IndexController - listaProduto ==========\n");
-       List<Produto> p = produtoDAO.lista();
+       Pizzaria pizzaria = pizzariaDAO.obtemPizzariaPorId(usuarioSession.getUser().getId());
+       List<Produto> p = produtoDAO.obtemProdutoPorPizzariaId(pizzaria.getId());
        result.include("produto", p);
     }
     

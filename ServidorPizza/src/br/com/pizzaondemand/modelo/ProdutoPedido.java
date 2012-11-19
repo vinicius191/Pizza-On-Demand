@@ -50,6 +50,7 @@ public class ProdutoPedido implements java.io.Serializable {
         this.produto = produto;
     }
 
+
     public int getQuantidade() {
         return quantidade;
     }

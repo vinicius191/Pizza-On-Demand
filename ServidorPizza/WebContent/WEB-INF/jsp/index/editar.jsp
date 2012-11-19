@@ -5,13 +5,6 @@
     <head>
         
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        
-        <link href="css/style.css" rel="stylesheet" type="text/css" media="all">
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-        <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
-        <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
-        <!-- Inclusão do Jquery Validate -->
-        <script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery.validate/1.6/jquery.validate.js" ></script>
         <title>Pizza - On Demand! | Editar Cadastro</title>
     </head>
     <body>
@@ -67,31 +60,39 @@
                         <div style="padding: 20px;">
                             <form id="formAtualizaCadastro" action="${pageContext.request.contextPath}/atualizarPizzaria/${pizzaria.id}" method="POST">
                                 <table border="0" width="94%" align="left" style="color: #5a0805; font-size: 18px;">
-<!--                                    <tr>
-                                        <td colspan="2" style="text-align: center; font-size: 12px;">
-                                            <img src="imagens/logo_inicial.png" width=20% height=35% />
-                                        </td>
-                                    </tr>-->
-                                    <!-- 	<tr> -->
-                                    <!-- 		<td colspan="2" style="text-align: center; font-weight:bold; padding-top: 20px; padding-bottom: 10px;">Cadastro da sua Pizzaria</td> -->
-                                    <!-- 	</tr> -->
-<!--                                    <tr><td colspan="2" style="height: 30px; text-align: right; font-size: 14px;"><a href="${pageContext.request.contextPath}/">&laquo; Voltar</a></td></tr>-->
                                     <tr>
-                                        <td colspan="2" style="padding-top: 20px; border-bottom: 1px solid #773e3c; font-size: 14px; font-weight: bold; padding-bottom: 10px;">Dados de acesso ao Sistema</td>
+                                        <td colspan="2" style="padding-top: 20px; border-bottom: 1px solid #773e3c; font-size: 14px; font-weight: bold; padding-bottom: 10px;">Selecione as Formas de Pagamento da sua Pizzaria</td>
                                     </tr>
-                                    <tr><td colspan="2" style="height: 20px;"></td></tr>	
+                                    <tr><td colspan="2" style="height: 20px;"></td></tr>
                                     <tr>
-                                        <td style="font-size: 14px; width: 200px; padding-left: 3px;">Email da Pizzaria: </td>
-                                        <td>
-                                            <input type="text" name="pizzaria.email" value="${pizzaria.email}" id="pizzaria.email" style="width: 40%; height: 20px; border: 1px solid #5a0805; padding-left: 3px;" />
-                                            
+                                        <td colspan="2" style="height: 20px; font-size: 14px;">
+                                            <c:forEach items="${listaFormaPagamento}" var="lista" varStatus="s">
+                                                <input type="checkbox" name="pizzariaFormaPagamento[${s.index}].formaPagamento.id" value="${lista.id}"> ${lista.descricao}<br>      
+                                            </c:forEach>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="font-size: 14px; width: 200px; padding-left: 3px;">Senha: </td>
-                                        <td>
-                                            <input type="password" name="pizzaria.senha" value="${pizzaria.senha}" id="pizzaria.senha" style="width: 40%; height: 20px; border: 1px solid #5a0805; padding-left: 3px;" />
-                                            
+                                        <td colspan="2" style="padding-top: 20px; border-bottom: 1px solid #773e3c; font-size: 14px; font-weight: bold; padding-bottom: 10px;">Informações para pedidos</td>
+                                    </tr>
+                                    <tr><td colspan="2" style="height: 20px;"></td></tr>
+                                    <tr>
+                                        <td style="font-size: 14px; width: 200px; padding-left: 3px;">Aceita Meia Pizza: </td>
+                                        <td style="font-size: 14px;">
+                                            <select name="pizzaria.aceitaMeia" style="height: 20px; border: 1px solid #5a0805; padding-left: 3px;">
+                                                <option value="">Selecione</option>
+                                                <option value="1">Sim</option>
+                                                <option value="2">Não</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size: 14px; width: 200px; padding-left: 3px;">Valor Meia Pizza: </td>
+                                        <td style="font-size: 14px;">
+                                            <select name="pizzaria.valorTamanho" id="valorTamanho" style="height: 20px; border: 1px solid #5a0805; padding-left: 3px;">
+                                                <option value="">Selecione</option>
+                                                <option value="1">Maior valor da 1/2 Pizza</option>
+                                                <option value="2">Valor proporcinal entre as metades</option>
+                                            </select>
                                         </td>
                                     </tr>
                                     <tr>
@@ -235,6 +236,10 @@
                 if (footerTop < docHeight) {
                     $('#footer').css('margin-top', 10 + (docHeight - footerTop) + 'px');
                 }
+            });
+        
+            $("#formAtualizaCadastro").submit(function(){
+                alert($("#valorTamanho").val());
             });
         </script>
 

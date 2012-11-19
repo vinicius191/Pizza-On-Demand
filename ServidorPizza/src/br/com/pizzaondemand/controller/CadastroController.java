@@ -10,15 +10,18 @@ import br.com.caelum.vraptor.interceptor.multipart.UploadedFile;
 import br.com.caelum.vraptor.view.Results;
 import br.com.pizzaondemand.modelo.Pizzaria;
 import br.com.pizzaondemand.dao.PizzariaDAO;
+import br.com.pizzaondemand.dao.PizzariaFormaPagamentoDAO;
 import br.com.pizzaondemand.dao.ProdutoDAO;
 import br.com.pizzaondemand.diversos.AdministracaoEmail;
 import br.com.pizzaondemand.diversos.Imagens;
+import br.com.pizzaondemand.modelo.PizzariaFormaPagamento;
 import br.com.pizzaondemand.modelo.Produto;
 import br.com.pizzaondemand.modelo.UsuarioSession;
 import com.google.common.io.ByteStreams;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import org.hibernate.HibernateException;
 
 @Resource
@@ -29,19 +32,22 @@ public class CadastroController {
     private Imagens imagens;
     private UsuarioSession usuarioSession;
     private ProdutoDAO produtoDAO;
+    private final PizzariaFormaPagamentoDAO pizzariaFormaPagamentoDAO;
 
     public CadastroController(
             Result result,
             PizzariaDAO pizzariaDAO,
             UsuarioSession usuarioSession,
             Imagens imagens,
-            ProdutoDAO produtoDAO) {
+            ProdutoDAO produtoDAO,
+            PizzariaFormaPagamentoDAO pizzariaFormaPagamentoDAO) {
 
         this.result = result;
         this.pizzariaDAO = pizzariaDAO;
         this.imagens = imagens;
         this.usuarioSession = usuarioSession;
         this.produtoDAO = produtoDAO;
+        this.pizzariaFormaPagamentoDAO = pizzariaFormaPagamentoDAO;
 
     }
 
@@ -105,17 +111,35 @@ public class CadastroController {
     @Post("/atualizarPizzaria/{pizzaria.id}")
     public void atualizarPizzaria(Pizzaria pizzaria) {
         System.out.println("\n========== CadastroController - atualizaCadastro ==========\n");
+        
+        System.out.println("Pizzaria ==> " + pizzaria.getEstado());
+        System.out.println("Pizzaria ==> " + pizzaria.getValorTamanho());
+        
         try {
-            if(pizzaria != null) {
+//            if(!pizzariaFormaPagamento.isEmpty()) {
+//                for( int i = 0; i < pizzariaFormaPagamento.size(); i++ ) {
+//                    PizzariaFormaPagamento pFP = new PizzariaFormaPagamento();
+//            
+//                    pFP.setFormaPagamento(pizzariaFormaPagamento.get(i).getFormaPagamento());
+//                    pFP.setPizzaria(pizzaria);
+//            
+//                    pizzariaFormaPagamentoDAO.salvar(pFP);
+//       
+//                }
+//            }
+            
+            if(pizzaria == null) {
+                result.use(Results.http()).body("Erro ao atualizar Pizzaria").sendError(403);
+            } else {
                 System.out.println("Vou atualizar a pizzaria com email: " + pizzaria.getId());
                 System.out.println("Senha que chegou da pizzaria: " + pizzaria.getSenha());
+                System.out.println("Pizzaria ==> " + pizzaria.getEstado());
+                System.out.println("Pizzaria ==> " + pizzaria.getValorTamanho());
                 Pizzaria p = pizzariaDAO.obtemPizzariaPorId(pizzaria.getId());
 
                 pizzariaDAO.atualizar(montaPizzariaParaAtualizar(pizzaria, p));
                 
                 result.redirectTo(IndexController.class).index();
-            } else {
-                result.use(Results.http()).body("Erro ao atualizar Pizzaria").sendError(403);
             }
         } catch (Exception e) {
             System.out.println("Erro ao atualizar Pizzaria: " + e.toString());

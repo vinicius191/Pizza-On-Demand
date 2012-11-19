@@ -32,23 +32,23 @@
 </ul>-->
 
 <ul id="nav">
-    <li><a href="${pageContext.request.contextPath}/index"><img src="imagens/seta-01.png" style="padding-right: 7px;" />Página Inicial</a></li>
-  <li><a href="#"><img src="imagens/seta-01.png" style="padding-right: 7px;" />Dados da Pizzaria</a>
+    <li><a href="${pageContext.request.contextPath}/index"><img src="imagens/seta-01.png" border="0" style="padding-right: 7px; border: 0px;" />Página Inicial</a></li>
+  <li><a href="#"><img src="imagens/seta-01.png" border="0" style="padding-right: 7px; border: 0px;" />Dados da Pizzaria</a>
     <ul>
-        <li><a href="${pageContext.request.contextPath}/mensagemPerfil"><img src="imagens/seta-02.png" style="padding-right: 7px;" /><span style="color: #b16e6c;">Mensagem do Perfil</span></a></li>
-      <li><a href="${pageContext.request.contextPath}/imagemPerfil"><img src="imagens/seta-02.png" style="padding-right: 7px;" /><span style="color: #b16e6c;">Imagem do Perfil</span></a></li>
-	  <li><a href="${pageContext.request.contextPath}/edita"><img src="imagens/seta-02.png" style="padding-right: 7px;" /><span style="color: #b16e6c;">Editar Cadastro</span></a></li>
-          <li><a href="#"><img src="imagens/seta-02.png" style="padding-right: 7px;" /><span style="color: #b16e6c;">Alterar Email/Senha</span></a></li>
+        <li><a href="${pageContext.request.contextPath}/mensagemPerfil"><img src="imagens/seta-02.png" border="0" style="padding-right: 7px; border: 0px;" /><span style="color: #b16e6c;">Mensagem do Perfil</span></a></li>
+      <li><a href="${pageContext.request.contextPath}/imagemPerfil"><img src="imagens/seta-02.png" border="0" style="padding-right: 7px; border: 0px;" /><span style="color: #b16e6c;">Imagem do Perfil</span></a></li>
+	  <li><a href="${pageContext.request.contextPath}/editar"><img src="imagens/seta-02.png" border="0" style="padding-right: 7px; border: 0px;" /><span style="color: #b16e6c;">Editar Cadastro</span></a></li>
+          <li><a href="${pageContext.request.contextPath}/editarEmailSenha"><img src="imagens/seta-02.png" border="0" style="padding-right: 7px; border: 0px;" /><span style="color: #b16e6c;">Alterar Email/Senha</span></a></li>
     </ul>
   </li>
-  <li><a href="#"><img src="imagens/seta-01.png" style="padding-right: 7px;" />Cardápio</a>
+  <li><a href="#"><img src="imagens/seta-01.png" border="0" style="padding-right: 7px; border: 0px;" />Cardápio</a>
     <ul>
-      <li><a href="${pageContext.request.contextPath}/produto"><img src="imagens/seta-02.png" style="padding-right: 7px;" /><span style="color: #b16e6c;">Cadastrar Produtos</span></a></li>
-      <li><a href="${pageContext.request.contextPath}/listaProduto"><img src="imagens/seta-02.png" style="padding-right: 7px;" /><span style="color: #b16e6c;">Visualizar Produtos</span></a></li>
-      <li><a href="${pageContext.request.contextPath}/listaProduto"><img src="imagens/seta-02.png" style="padding-right: 7px;" /><span style="color: #b16e6c;">Editar Produtos</span></a></li>
+      <li><a href="${pageContext.request.contextPath}/produto"><img src="imagens/seta-02.png" border="0" style="padding-right: 7px; border: 0px;" /><span style="color: #b16e6c;">Cadastrar Produtos</span></a></li>
+      <li><a href="${pageContext.request.contextPath}/listaProduto"><img src="imagens/seta-02.png" border="0" style="padding-right: 7px; border: 0px;" /><span style="color: #b16e6c;">Visualizar Produtos</span></a></li>
+      <li><a href="${pageContext.request.contextPath}/listaProduto"><img src="imagens/seta-02.png" border="0" style="padding-right: 7px; border: 0px;" /><span style="color: #b16e6c;">Editar Produtos</span></a></li>
     </ul>
   </li>
-  <li><a href="${pageContext.request.contextPath}/logout"><img src="imagens/seta-01.png" style="padding-right: 7px;" />Sair</a></li>
+  <li><a href="${pageContext.request.contextPath}/logout"><img src="imagens/seta-01.png" border="0" style="padding-right: 7px; border: 0px;" />Sair</a></li>
 </ul>
 
 <script type="text/javascript">

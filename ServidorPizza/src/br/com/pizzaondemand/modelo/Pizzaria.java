@@ -38,6 +38,8 @@ public class Pizzaria implements java.io.Serializable {
     private List<Pedido> pedidos;
     @OneToMany(mappedBy = "pizzaria", cascade = CascadeType.ALL)
     private List<PizzariaFormaPagamento> pizzariasFormasPagamento;
+    private Integer aceitaMeia;
+    private Integer valorTamanho;
 
     public Long getId() {
         return id;
@@ -215,6 +217,20 @@ public class Pizzaria implements java.io.Serializable {
         this.pizzariasFormasPagamento = pizzariasFormasPagamento;
     }
 
- 
- 
+    public Integer getAceitaMeia() {
+        return aceitaMeia;
+    }
+
+    public void setAceitaMeia(Integer aceitaMeia) {
+        this.aceitaMeia = aceitaMeia;
+    }
+
+    public Integer getValorTamanho() {
+        return valorTamanho;
+    }
+
+    public void setValorTamanho(Integer valorTamanho) {
+        this.valorTamanho = valorTamanho;
+    }
+
 }

@@ -2,6 +2,7 @@ package br.com.pizzaondemand.modelo;
 
 import java.util.Date;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -15,6 +16,8 @@ public class Pedido implements java.io.Serializable {
     @Id
     @GeneratedValue
     private Long id;
+    @Column(length = 2056)
+    private String descricao;
     private String enderecoEntrega;
     private int status;
     private Double valor;
@@ -22,17 +25,17 @@ public class Pedido implements java.io.Serializable {
     private Pizzaria pizzaria;
     @ManyToOne
     private UsuarioAndroid usuarioAndroid;
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date dataPedido;
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date dataEntrega;
+//    @Temporal(javax.persistence.TemporalType.DATE)
+    private String dataPedido;
+//    @Temporal(javax.persistence.TemporalType.DATE)
+    private String dataEntrega;
     private Double troco;
     @ManyToOne
     private FormaPagamento formaPagamento;
     @OneToMany(mappedBy="pedido")
     private List<ProdutoPedido> produtoPedidos;
-    @ManyToOne
-    private Produto produto;
+//    @ManyToOne
+//    private Produto produto;
 
     public Long getId() {
         return id;
@@ -82,19 +85,19 @@ public class Pedido implements java.io.Serializable {
         this.usuarioAndroid = usuarioAndroid;
     }
 
-    public Date getDataPedido() {
+    public String getDataPedido() {
         return dataPedido;
     }
 
-    public void setDataPedido(Date dataPedido) {
+    public void setDataPedido(String dataPedido) {
         this.dataPedido = dataPedido;
     }
 
-    public Date getDataEntrega() {
+    public String getDataEntrega() {
         return dataEntrega;
     }
 
-    public void setDataEntrega(Date dataEntrega) {
+    public void setDataEntrega(String dataEntrega) {
         this.dataEntrega = dataEntrega;
     }
 
@@ -120,6 +123,14 @@ public class Pedido implements java.io.Serializable {
 
     public void setProdutoPedidos(List<ProdutoPedido> produtoPedidos) {
         this.produtoPedidos = produtoPedidos;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
   
     

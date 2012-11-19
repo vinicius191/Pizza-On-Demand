@@ -16,12 +16,13 @@ public class Produto implements java.io.Serializable{
     private Long id;
     private String detalhe;
     private int tipo;
+    private int tamanho;
     private Double preco; 
     private String descricao; 
     @ManyToOne
     private Pizzaria pizzaria;
-    @OneToMany(mappedBy="produto")
-    private List<Pedido> pedidos;
+//    @OneToMany(mappedBy="produto")
+//    private List<Pedido> pedidos;
     @OneToMany(mappedBy="produto")
     private List<ProdutoPedido> produtoPedidos;
 
@@ -73,20 +74,20 @@ public class Produto implements java.io.Serializable{
         this.pizzaria = pizzaria;
     }
 
-    public List<Pedido> getPedidos() {
-        return pedidos;
-    }
-
-    public void setPedidos(List<Pedido> pedidos) {
-        this.pedidos = pedidos;
-    }
-
     public List<ProdutoPedido> getProdutoPedidos() {
         return produtoPedidos;
     }
 
     public void setProdutoPedidos(List<ProdutoPedido> produtoPedidos) {
         this.produtoPedidos = produtoPedidos;
+    }
+
+    public int getTamanho() {
+        return tamanho;
+    }
+
+    public void setTamanho(int tamanho) {
+        this.tamanho = tamanho;
     }
 
     

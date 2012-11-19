@@ -100,3 +100,9 @@ legend {
     background:url('../imagens/bg-titulos.png') repeat-x;
     border-bottom: 1px dotted #773e3c;
 }
+
+.ui-dialog-titlebar-close {
+}
+.ui-dialog {
+    border: 6px solid #d49768;
+}
