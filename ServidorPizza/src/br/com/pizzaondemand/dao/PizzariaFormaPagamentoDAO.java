@@ -45,9 +45,12 @@ public class PizzariaFormaPagamentoDAO {
         session.save(pizzariaFormaPagamentoWS);
     }
 
-    public List<PizzariaFormaPagamento> obtemListaFormasPagamentoPorPizzarias(List<Pizzaria> p) {
-        return (List<PizzariaFormaPagamento>) session.createQuery("FROM PizzariaFormaPagamento WHERE pizzaria_id = :p")
-                .setParameter("pizzaria_id", p);
+    public void salvaAtualiza(PizzariaFormaPagamento pizzariaFormaPagamento) {
+        session.merge(pizzariaFormaPagamento);
+    }
+    public List<PizzariaFormaPagamento> obtemListaFormasPagamentoPorPizzarias(Long pizzaria_id) {
+        return (List<PizzariaFormaPagamento>) session.createQuery("FROM PizzariaFormaPagamento WHERE pizzaria_id = :pizzaria_id")
+                .setParameter("pizzaria_id", pizzaria_id).list();
     }
     
 }

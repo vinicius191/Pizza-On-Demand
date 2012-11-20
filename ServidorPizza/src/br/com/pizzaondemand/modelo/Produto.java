@@ -23,7 +23,7 @@ public class Produto implements java.io.Serializable{
     private Pizzaria pizzaria;
 //    @OneToMany(mappedBy="produto")
 //    private List<Pedido> pedidos;
-    @OneToMany(mappedBy="produto")
+    @OneToMany(mappedBy="produto", cascade=CascadeType.ALL)
     private List<ProdutoPedido> produtoPedidos;
 
     public Long getId() {

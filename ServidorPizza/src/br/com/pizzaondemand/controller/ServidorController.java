@@ -32,17 +32,15 @@ import br.com.pizzaondemand.dao.PizzariaFormaPagamentoDAO;
 import br.com.pizzaondemand.dao.ProdutoDAO;
 import br.com.pizzaondemand.dao.UsuarioAndroidDAO;
 import br.com.pizzaondemand.diversos.AdministracaoEmail;
+import br.com.pizzaondemand.modelo.FormaPagamento;
 import br.com.pizzaondemand.modelo.Pedido;
+import br.com.pizzaondemand.modelo.PizzariaFormaPagamento;
 import br.com.pizzaondemand.modelo.PizzariaWS;
 import br.com.pizzaondemand.modelo.Produto;
-import br.com.pizzaondemand.modelo.ProdutoPedido;
 import br.com.pizzaondemand.modelo.UsuarioAndroid;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -278,7 +276,7 @@ public class ServidorController {
             List<Produto> p = produtoDAO.obtemProdutoPorPizzariaId(pizzaria_id);
             if (p.size() > 0) {
                 System.out.println("A Lista de Produtos não esta vazia... Enviando Lista...");
-                result.use(Results.json()).from(p).serialize();
+                result.use(Results.json()).from(p).include("tamanho").serialize();
             } else {
                 System.out.println("A Lista de Produtos esta VAZIA... Retornando json vazio para cliente...");
                 result.use(Results.json()).from("", "").serialize();
@@ -290,26 +288,56 @@ public class ServidorController {
     }
 
     @Public
+    @Path("/servidor/listaFormaPagamento/{pizzaria_id}")
+    public void listaFormaPagamento(Long pizzaria_id) {
+        System.out.println("\n ============== ServidorController - listaFormaPagamento =============\n");
+        try {
+            List<PizzariaFormaPagamento> lPFP = pizzariaFormaPagamentoDAO.obtemListaFormasPagamentoPorPizzarias(pizzaria_id);
+            if(!lPFP.isEmpty()) {
+                System.out.println("A Lista de Forma de Pagamento não esta vazia... Enviando Lista...");
+                List<FormaPagamento> list = new ArrayList<FormaPagamento>();
+                for(int i = 0; i < lPFP.size(); i++) {
+                    FormaPagamento _fP = new FormaPagamento();
+                    _fP.setId(lPFP.get(i).getId());
+                    _fP.setDescricao(lPFP.get(i).getFormaPagamento().getDescricao());
+                    list.add(_fP);
+                }
+                result.use(Results.json()).from(list).serialize();
+            } else {
+                System.out.println("A Lista de Forma de Pagamento esta VAZIA... Retornando json vazio para cliente...");
+                result.use(Results.json()).from("", "").serialize();
+            }
+        } catch (HibernateException e) {
+            System.out.println("Erro ao receber a lista de Formas de Pagamento : " + e.toString());
+            result.use(Results.json()).from("", "").serialize();
+        }
+    }
+    
+    @Public
     @Consumes(value = {"application/json", "application/x-www-form-urlencoded"})
     @Path("/servidor/recebePedidoAndroid")
-    public void recebePedidoAndroid(Pedido pedido) {
+    public void recebePedidoAndroid(Pedido pedido) throws Exception {
         System.out.println("\n ============== ServidorController - recebePedidoAndroid =============\n");
         try {
             if(pedido != null) {
+//                System.out.println("OK");
                 pedidoDAO.salva(pedido);
+                result.use(Results.json()).from("OK", "OK").serialize();
             }
-            System.out.println("Pedido - Data do Pedido: " + pedido.getDataPedido());
             System.out.println("Pedido - Endereço Entrega: " + pedido.getEnderecoEntrega());
+            System.out.println("Pedido - Endereço Entrega: " + pedido.getDescricao());
+            System.out.println("Pedido - Endereço Entrega: " + pedido.getDataPedido());
             System.out.println("Pedido - Status: " + pedido.getStatus());
             System.out.println("Pedido - Forma de Pagamento: " + pedido.getFormaPagamento().getId());
             System.out.println("Pedido - Valor: " + pedido.getValor());
             System.out.println("Pedido - Troco: " + pedido.getTroco());
             System.out.println("Pedido - Pizzaria: " + pedido.getPizzaria().getId());
-            System.out.println("Pedido - Descricao: " + pedido.getDescricao());
             System.out.println("Pedido - UsuarioAndroid: " + pedido.getUsuarioAndroid().getId());
 
         } catch (NullPointerException e) {
             System.out.println("Deu erro ao receber classe Pedido: " + e.toString());
+        } catch (Exception e) {
+            System.out.println("Deu erro quando chamou o metodo de Pedido: " + e.toString());
         }
     }
     /*  

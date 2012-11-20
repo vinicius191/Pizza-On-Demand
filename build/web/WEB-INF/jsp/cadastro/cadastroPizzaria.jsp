@@ -17,31 +17,7 @@
             td {
                 padding: 5px;
             }
-            .ui-dialog-titlebar-close {
-                /*                visibility: hidden;*/
-            }
-            .ui-dialog {
-                border: 6px solid #d49768;
-            }/*
-            .ui-widget-header {
-                background-image: none;
-                background-color: #f4f2e9;
-                border: 1px solid #5a0805;
-                color: #5a0805;
-            }
-            #dialog-validation {
-                color: #5a0805;
-            }
-            .ui-button-text-only {
-                color: #5a0805;
-                font-weight: bold;
-            }
-            .ui-button {
-                color: #5a0805;
-                font-weight: bold;
-                background-color: #f4f2e9;
-            }*/
-/*            .ui-dialog-titlebar {color:white!important;}*/
+
         </style>
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -319,7 +295,6 @@
                         },
                         "pizzaria.senha": {
                             required: "O campo <b>Senha</b> é obrigatório."
-//                            min: "O campo <b>Senha</b> precisa ter pelo menos 6 caracteres."
                         },
                         "pizzaria.razao_social": {
                             required: "O campo <b>Razão Social</b> é obrigatório."

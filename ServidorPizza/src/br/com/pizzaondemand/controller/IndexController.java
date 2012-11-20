@@ -72,6 +72,30 @@ public class IndexController {
         result.include("pizzaria", pizzaria);
     }
     
+    @Get("/pizzariaFormaPagamento")
+    public void pizzariaFormaPagamento() {
+        Pizzaria pizzaria = pizzariaDAO.obtemPizzariaPorId(usuarioSession.getUser().getId());
+        List<FormaPagamento> fP = formaPagamentoDAO.lista();
+        result.include("listaFormaPagamento", fP);
+        result.include("pizzaria", pizzaria);
+        try {
+            List<PizzariaFormaPagamento> lPFP = pizzariaFormaPagamentoDAO.obtemListaFormasPagamentoPorPizzarias(usuarioSession.getUser().getId());
+            if(!lPFP.isEmpty()) {
+                List<FormaPagamento> list = new ArrayList<FormaPagamento>();
+//                FormaPagamento _fP = new FormaPagamento();
+                for(int i = 0; i < lPFP.size(); i++) {
+                    FormaPagamento _fP = new FormaPagamento();
+                    _fP.setDescricao(lPFP.get(i).getFormaPagamento().getDescricao());
+                    list.add(_fP);
+                }
+                
+                result.include("listaPizzariaFormaPagamento", list);
+            }
+        } catch (NullPointerException e) {
+            System.out.println("Erro em pizzariaFormaPagamento: " + e.toString());
+        }
+    }
+    
     @Get("/editar")
     public void editar() {
         System.out.println("\n========== IndexController - editar ==========\n");

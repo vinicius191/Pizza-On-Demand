@@ -108,6 +108,33 @@ public class CadastroController {
         }
     }
     
+    @Post("/atualizarPizzariaFormaPagamento/{pizzaria.id}") 
+    public void atualizarPizzariaFormaPagamento(List<PizzariaFormaPagamento> pizzariaFormaPagamento, Pizzaria pizzaria) {
+        System.out.println("\n========== CadastroController - atualizarPizzariaFormaPagamento ==========\n");
+        try {
+            
+            System.out.println("Pizzaria ID ==> " + pizzaria.getId());
+//            List<PizzariaFormaPagamento> lPFP = pizzariaFormaPagamentoDAO.obtemListaFormasPagamentoPorPizzarias(pizzaria);
+            
+            if(!pizzariaFormaPagamento.isEmpty()) {
+                
+//                if(!lPFP.isEmpty() && lPFP == pizzariaFormaPagamento)
+                
+                for( int i = 0; i < pizzariaFormaPagamento.size(); i++ ) {                    
+                    PizzariaFormaPagamento pFP = new PizzariaFormaPagamento();            
+                    pFP.setFormaPagamento(pizzariaFormaPagamento.get(i).getFormaPagamento());
+                    pFP.setPizzaria(pizzaria);
+                    System.out.println("Forma de pagamento " + (i) + " ==> " + pFP.getFormaPagamento().getId());
+                    pizzariaFormaPagamentoDAO.salvaAtualiza(pFP);       
+                }
+                
+                result.redirectTo(IndexController.class).index();
+            }  
+        } catch (NullPointerException e) {
+            System.out.println("Deu erro no atualizarPizzariaFormaPagamento: " + e.toString());
+        }
+    }
+    
     @Post("/atualizarPizzaria/{pizzaria.id}")
     public void atualizarPizzaria(Pizzaria pizzaria) {
         System.out.println("\n========== CadastroController - atualizaCadastro ==========\n");
@@ -116,18 +143,6 @@ public class CadastroController {
         System.out.println("Pizzaria ==> " + pizzaria.getValorTamanho());
         
         try {
-//            if(!pizzariaFormaPagamento.isEmpty()) {
-//                for( int i = 0; i < pizzariaFormaPagamento.size(); i++ ) {
-//                    PizzariaFormaPagamento pFP = new PizzariaFormaPagamento();
-//            
-//                    pFP.setFormaPagamento(pizzariaFormaPagamento.get(i).getFormaPagamento());
-//                    pFP.setPizzaria(pizzaria);
-//            
-//                    pizzariaFormaPagamentoDAO.salvar(pFP);
-//       
-//                }
-//            }
-            
             if(pizzaria == null) {
                 result.use(Results.http()).body("Erro ao atualizar Pizzaria").sendError(403);
             } else {

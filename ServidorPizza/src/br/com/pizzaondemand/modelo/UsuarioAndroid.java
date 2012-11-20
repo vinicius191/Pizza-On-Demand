@@ -1,13 +1,14 @@
 package br.com.pizzaondemand.modelo;
 
+import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
-public class UsuarioAndroid {
+public class UsuarioAndroid implements Serializable {
 
     @Id
     private Long id;
@@ -16,7 +17,7 @@ public class UsuarioAndroid {
     private String email;
     private String senha;
     private String telefone;
-    @OneToMany(mappedBy="usuarioAndroid")
+    @OneToMany(mappedBy="usuarioAndroid", cascade=CascadeType.ALL)
     private List<Pedido> pedidos;
 
     public String getEmail() {
