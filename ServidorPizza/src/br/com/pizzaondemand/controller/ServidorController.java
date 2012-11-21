@@ -139,32 +139,20 @@ public class ServidorController {
         result.nothing();
     }
 
-    /*
+    
      @Public
-     @Path("/servidor/listaPedidos")
-     public void listaPedidos() {
-     List<Pedido> listaPedidos = pedidoDAO.listaDisponiveis();
-     List<PedidoWS> pWS2 = new ArrayList<PedidoWS>();
-     PedidoWS pWS = null;
-     StringBuilder sB = new StringBuilder();
-     List<String> descricao = new ArrayList<String>();
+     @Path("/servidor/listaPedidos/{id}")
+     public void listaPedidos(Long id) {
+         try {
+            List<Pedido> listaPedidos = pedidoDAO.listaDisponiveisPorPizzaria(id);
         
-     for(int i = 0; i < listaPedidos.size(); i++) {
-     pWS = new PedidoWS();
-     pWS.setId(listaPedidos.get(i).getId());
-     pWS.setEnderecoEntrega(listaPedidos.get(i).getEnderecoEntrega());
-     pWS.setQuantidade(listaPedidos.get(i).getQuantidade());
-     pWS.setProduto(listaPedidos.get(i).getProduto().getDescricao());
-     pWS.setStatus(listaPedidos.get(i).getStatus());
-     pWS.setUsuarioAndroid(listaPedidos.get(i).getUsuarioAndroid().getNome());
-            
-     pWS2.add(pWS);
-     }
+            result.use(Results.json()).withoutRoot().from(listaPedidos).include("usuarioAndroid").include("formaPagamento").serialize();
+         } catch (Exception e) {
+             System.out.println("Deu erro no listaPedidos: " + e.toString());
+         }
         
-     //        result.use(Results.json()).withoutRoot().from(listaPedidos).include("produto.detalhe").serialize();
-     result.use(Results.json()).withoutRoot().from(pWS2).serialize();
      }
-     */
+
 
     /*
      @Public
@@ -497,17 +485,20 @@ public class ServidorController {
     public void verificarUsuarioAndroid(UsuarioAndroid usuarioAndroid) {
         System.out.println("\n========== ServidorController - verificaUsuarioAndroid ==========\n");
         try {
-            if (!ususAndroidDAO.verificaIMEI(usuarioAndroid)) {
-                UsuarioAndroid u = ususAndroidDAO.obtemUsuarioAndroidPorIMEI(usuarioAndroid);
-
-                result.use(Results.json()).from(u).serialize();
+            boolean u = ususAndroidDAO.verificaIMEI(usuarioAndroid);
+            System.out.println("uuuuu  => " + u );
+            if (u != false) {
+                UsuarioAndroid uA = ususAndroidDAO.obtemUsuarioAndroidPorIMEI(usuarioAndroid);
+                System.out.println("Email: " + uA.getEmail());
+                String email = uA.getEmail();
+                result.use(Results.json()).from(uA).serialize();
 
             } else {
-                result.use(Results.json()).from("").serialize();
+                result.use(Results.json()).from("", "").serialize();
             }
         } catch (HibernateException e) {
             System.out.println("Deu erro no recuperarSenhaAndroid: " + e.toString());
-            result.notFound();
+            result.use(Results.json()).from("", "").serialize();
         }
     }
 

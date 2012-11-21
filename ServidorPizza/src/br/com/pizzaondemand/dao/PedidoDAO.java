@@ -27,6 +27,11 @@ public class PedidoDAO {
         return (List<Pedido>) session.createQuery("FROM Pedido WHERE status = -1").list();
     }
     
+    public List<Pedido> listaDisponiveisPorPizzaria(Long pizzaria_id) {
+        return (List<Pedido>) session.createQuery("FROM Pedido WHERE status = -1 AND pizzaria_id = :pizzaria_id")
+                .setParameter("pizzaria_id", pizzaria_id).list();
+    }
+    
     public List<PedidoWS> listaWS() {
         return (List<PedidoWS>) session.createQuery("FROM Pedido").list();
     }
