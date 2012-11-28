@@ -3,8 +3,20 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head>
+        <!-- CSS -->
         <link href="css/style.css" rel="stylesheet" type="text/css" media="all">
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <link href="css/jquery-ui-1.9.1.custom.min.css" rel="stylesheet" type="text/css" media="all">
+        <!-- Scripts -->
+        <script src="scripts/jquery-1.8.2.js"></script>
+        <script src="scripts/jquery-ui-1.9.1.custom.js"></script>
+        <script src="scripts/jquery-ui-1.9.1.custom.min.js"></script>
+        <script src="scripts/jquery.cookie.js"></script>
+        <script src="scripts/jquery.dcjqaccordion.2.6.min.js"></script>
+        <script src="scripts/jquery.hoverIntent.minified.js"></script>
+        <!-- Inclusão do Jquery Validate -->
+        <script type="text/javascript" src="scripts/jquery.validate.js" ></script>
+        <script type="text/javascript" src="scripts/jquery.maskedinput-1.3.js" ></script>
+        <script type="text/javascript" src="http://igorescobar.github.com/jQuery-Mask-Plugin/jquery.mask.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Pizza - On Demand! | Lista Produtos</title>
     </head>
@@ -72,7 +84,7 @@
                                         <tr style="text-align: center;">
                                             <td style="padding: 5px; border-bottom: 1px dotted #99967d; border-left: 1px solid #5a0805;">${produto.descricao}</td>
                                             <td style="padding: 5px; border-bottom: 1px dotted #99967d; border-left: 1px solid #5a0805;">${produto.tipo}</td>
-                                            <td style="padding: 5px; border-bottom: 1px dotted #99967d; border-left: 1px solid #5a0805;"><s>Editar</s> | <a href="<c:url value="/excluiProduto/${produto.id}/${produto.pizzaria.id}"/>">Excluir</a></td>
+                                            <td style="padding: 5px; border-bottom: 1px dotted #99967d; border-left: 1px solid #5a0805;"><a href="<c:url value="/editarProduto/${produto.id}"/>">Editar</a> | <a href="<c:url value="/excluiProduto/${produto.id}/${produto.pizzaria.id}"/>">Excluir</a></td>
                                         </tr>
                                     </c:forEach>
                                 </table>

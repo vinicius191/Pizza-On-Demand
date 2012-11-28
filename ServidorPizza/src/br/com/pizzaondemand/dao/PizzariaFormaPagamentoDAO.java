@@ -5,7 +5,7 @@
 package br.com.pizzaondemand.dao;
 
 import br.com.caelum.vraptor.ioc.Component;
-import br.com.pizzaondemand.modelo.Pizzaria;
+import br.com.pizzaondemand.modelo.FormaPagamento;
 import br.com.pizzaondemand.modelo.PizzariaFormaPagamento;
 import br.com.pizzaondemand.modelo.PizzariaFormaPagamentoWS;
 import java.util.List;
@@ -51,6 +51,10 @@ public class PizzariaFormaPagamentoDAO {
     public List<PizzariaFormaPagamento> obtemListaFormasPagamentoPorPizzarias(Long pizzaria_id) {
         return (List<PizzariaFormaPagamento>) session.createQuery("FROM PizzariaFormaPagamento WHERE pizzaria_id = :pizzaria_id")
                 .setParameter("pizzaria_id", pizzaria_id).list();
+    }
+    public FormaPagamento obtemFormaPagamentoPorId(Long id) {
+        return (FormaPagamento) session.createQuery("FROM PizzariaFormaPagamento WHERE id = :id")
+                .setParameter("id", id).uniqueResult();
     }
     
 }

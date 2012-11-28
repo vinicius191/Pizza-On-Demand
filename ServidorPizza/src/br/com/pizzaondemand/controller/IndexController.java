@@ -126,7 +126,23 @@ public class IndexController {
        System.out.println("\n========== IndexController - listaProduto ==========\n");
        Pizzaria pizzaria = pizzariaDAO.obtemPizzariaPorId(usuarioSession.getUser().getId());
        List<Produto> p = produtoDAO.obtemProdutoPorPizzariaId(pizzaria.getId());
+       result.include("pizzaria", pizzaria);
        result.include("produto", p);
+    }
+
+//    @Public
+    @Path("/editarProduto/{produto.id}")
+    public void editarProduto(Produto produto) {
+        try {
+            Pizzaria pizzaria = pizzariaDAO.obtemPizzariaPorId(usuarioSession.getUser().getId());
+            System.out.println("Pizzaria =====> " + pizzaria.getId());
+            System.out.println("Produto =====> " + produto.getId());
+            Produto p = produtoDAO.obtemProdutoPorId(produto.getId());
+            result.include("produto", p);
+            result.include("pizzaria", pizzaria);
+        } catch (Exception e) {
+            System.out.println("Deu erro no editar Produto : " + e.toString());
+        }
     }
     
 //    @Public

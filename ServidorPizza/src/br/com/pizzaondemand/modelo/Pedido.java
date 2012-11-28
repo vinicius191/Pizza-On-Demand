@@ -24,18 +24,18 @@ public class Pedido implements java.io.Serializable {
     private Pizzaria pizzaria;
     @ManyToOne
     private UsuarioAndroid usuarioAndroid;
-//    @Temporal(javax.persistence.TemporalType.DATE)
     private String dataPedido;
-//    @Temporal(javax.persistence.TemporalType.DATE)
     private String dataEntrega;
     private Double troco;
     @ManyToOne
     private FormaPagamento formaPagamento;
     @OneToMany(mappedBy="pedido", cascade=CascadeType.ALL)
     private List<ProdutoPedido> produtoPedidos;
-
-    //    private Produto produto;
-    //    private Produto produto;
+    private String mensagemAvaliacao;
+    private Double avaliacao;
+    private int statusAvaliacao;
+    
+    
     public Long getId() {
         return id;
     }
@@ -132,5 +132,30 @@ public class Pedido implements java.io.Serializable {
         this.produtoPedidos = produtoPedidos;
     }
 
+    public String getMensagemAvaliacao() {
+        return mensagemAvaliacao;
+    }
+
+    public void setMensagemAvaliacao(String mensagemAvaliacao) {
+        this.mensagemAvaliacao = mensagemAvaliacao;
+    }
+
+    public Double getAvaliacao() {
+        return avaliacao;
+    }
+
+    public void setAvaliacao(Double avaliacao) {
+        this.avaliacao = avaliacao;
+    }
+
+    public int getStatusAvaliacao() {
+        return statusAvaliacao;
+    }
+
+    public void setStatusAvaliacao(int statusAvaliacao) {
+        this.statusAvaliacao = statusAvaliacao;
+    }
+
+    
  
 }

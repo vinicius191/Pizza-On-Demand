@@ -73,6 +73,12 @@ public class CadastroController {
             
             pizzariaDAO.salvar(pizzaria);
 
+            try {
+                AdministracaoEmail.EnviarEmail("Confirmação de Cadastro - Pizza - On Demand!", ServidorController.montaEmailCadastroPizzaria(pizzaria), pizzaria.getEmail());
+            } catch (Exception e) {
+                System.out.println("Erro ao enviar emaill de Recuperação de Senha: " + e.toString());
+            }             
+            
             result.redirectTo(HomeController.class).home();
         } else {
             result.include("error", "Dados não foram salvos.").redirectTo(this).cadastroPizzaria();
@@ -221,6 +227,29 @@ public class CadastroController {
         return nova;
     }
     
+    public Produto montaProdutoParaAtualizar(Produto antigo, Produto novo) {
+        if(antigo.getDescricao() != null) {
+            novo.setDescricao(antigo.getDescricao());
+        }
+        if(antigo.getPreco() != null) {
+            novo.setPreco(antigo.getPreco());
+        }
+        if(antigo.getTamanho() != -1) {
+            novo.setTamanho(antigo.getTamanho());
+        }
+        if(antigo.getTipo()!= -1) {
+            novo.setTipo(antigo.getTipo());
+        }
+        if(antigo.getDetalhe()!= null) {
+            novo.setDetalhe(antigo.getDetalhe());
+        }
+        if(antigo.getPizzaria()!= null) {
+            novo.setPizzaria(antigo.getPizzaria());
+        }
+        
+        return novo;
+    }
+    
     @Get("/editarCadastro")
     public void editarCadastro() {
        System.out.println("\n========== CadastroController - editarCadastro ==========\n");
@@ -334,5 +363,17 @@ public class CadastroController {
         }
         
         result.use(Results.http()).body("erro");
+    }
+    
+    @Path("atualizarProduto/{produto.id}")
+    public void atualizarProduto(Produto produto) {
+        System.out.println("\n========== CadastroController - atualizarProduto ==========\n");
+        try {
+            Produto p = produtoDAO.obtemProdutoPorId(produto.getId());
+            produtoDAO.atualizar(montaProdutoParaAtualizar(produto, p));
+            result.redirectTo(IndexController.class).index();
+        } catch (Exception e) {
+            System.out.println("Erro no atualizarProduto : " + e.toString());
+        }
     }
 }

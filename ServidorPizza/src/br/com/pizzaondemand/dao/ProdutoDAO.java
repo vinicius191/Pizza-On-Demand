@@ -29,6 +29,10 @@ public class ProdutoDAO {
         session.save(produto);
     }
     
+    public void atualizar(Produto produto) {
+        session.merge(produto);
+    }
+    
     public void exclui(Produto produto) {
         session.delete(produto);
     }
@@ -45,7 +49,7 @@ public class ProdutoDAO {
 //    }
 
     public List<Produto> obtemProdutoPorPizzariaId(Long pizzaria_id) {
-        return (List<Produto>) session.createQuery("FROM Produto WHERE pizzaria_id = :pizzaria_id")
+        return (List<Produto>) session.createQuery("FROM Produto WHERE pizzaria_id = :pizzaria_id ORDER BY tamanho DESC")
                 .setParameter("pizzaria_id", pizzaria_id).list();
     }
 }

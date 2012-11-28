@@ -3,15 +3,21 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head>
-        
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        
+        <!-- CSS -->
         <link href="css/style.css" rel="stylesheet" type="text/css" media="all">
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-        <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
-        <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+        <link href="css/jquery-ui-1.9.1.custom.min.css" rel="stylesheet" type="text/css" media="all">
+        <!-- Scripts -->
+        <script src="scripts/jquery-1.8.2.js"></script>
+        <script src="scripts/jquery-ui-1.9.1.custom.js"></script>
+        <script src="scripts/jquery-ui-1.9.1.custom.min.js"></script>
+        <script src="scripts/jquery.cookie.js"></script>
+        <script src="scripts/jquery.dcjqaccordion.2.6.min.js"></script>
+        <script src="scripts/jquery.hoverIntent.minified.js"></script>
         <!-- Inclusão do Jquery Validate -->
-        <script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery.validate/1.6/jquery.validate.js" ></script>
+        <script type="text/javascript" src="scripts/jquery.validate.js" ></script>
+        <script type="text/javascript" src="scripts/jquery.maskedinput-1.3.js" ></script>
+        <script type="text/javascript" src="http://igorescobar.github.com/jQuery-Mask-Plugin/jquery.mask.js"></script>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Pizza - On Demand! | Cadastro de Produtos</title>
     </head>
     <body>
@@ -76,6 +82,7 @@
                                         <td style="font-size: 14px; padding-left: 3px;" width="150px">Tipo do produto:
                                             <!--<input type="text" name="produto.tipo" id="produto.tipo" style="width: 60%; height: 20px; border: 1px solid #5a0805; padding-left: 3px;" />-->
                                             <select name="produto.tipo" style="width: 25%; height: 20px; border: 1px solid #5a0805; padding-left: 3px;">
+                                                <option value="-1">Selecione</option>
                                                 <option value="1">1 - Pizza</option>
                                                 <option value="2">2 - Bebidas</option>
                                                 <option value="3">3 - Outros</option>
@@ -90,6 +97,16 @@
                                     <tr style="height: 40px;">
                                         <td style="font-size: 14px; padding-left: 3px;">Ingredientes:
                                             <input type="text" name="produto.detalhe" id="produto.detalhe" style="width: 40%; height: 20px; border: 1px solid #5a0805; padding-left: 3px;" />
+                                        </td>
+                                    </tr>
+                                    <tr style="height: 40px;">
+                                        <td style="font-size: 14px; padding-left: 3px;">Tamanho:
+                                            <select name="produto.tamanho" style="width: 25%; height: 20px; border: 1px solid #5a0805; padding-left: 3px;">
+                                                <option value="-1">Selecione</option>
+                                                <option value="1">1 - Pequeno</option>
+                                                <option value="2">2 - Médio</option>
+                                                <option value="3">3 - Grande</option>
+                                            </select> 
                                         </td>
                                     </tr>
                                     <tr style="height: 40px;">
