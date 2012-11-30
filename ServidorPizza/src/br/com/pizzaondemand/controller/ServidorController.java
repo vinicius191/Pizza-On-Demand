@@ -138,12 +138,16 @@ public class ServidorController {
                 pedidoDAO.atualiza(p);
                 result.use(Results.json()).withoutRoot().from(resultado).serialize();
                 
-                try {
-                    AdministracaoEmail.EnviarEmail("Pedido Aceito - Pizza - On Demand!", ServidorController.montaEmailPeidoEmRotaDeEntrega(p), p.getUsuarioAndroid().getEmail());
-                } catch (Exception e) {
-                    System.out.println("Erro ao enviar emaill de Recuperação de Senha: " + e.toString());
+                if(status == 3) {
+                    System.out.println("Status é 3 - Enviando email...");
+                    try {
+                        AdministracaoEmail.EnviarEmail("Pedido Aceito - Pizza - On Demand!", ServidorController.montaEmailPeidoEmRotaDeEntrega(p), p.getUsuarioAndroid().getEmail());
+                    } catch (Exception e) {
+                        System.out.println("Erro ao enviar emaill de Recuperação de Senha: " + e.toString());
+                    }
+                } else {
+                    System.out.println("Status diferente de 3 - Email NÃO enviado!");
                 }
-                
             } catch (HibernateException e) {
                 resultado = "Deu erro :(";
                 System.out.println("Deu erro ao obter ou salvar o pedido: " + e.toString());
