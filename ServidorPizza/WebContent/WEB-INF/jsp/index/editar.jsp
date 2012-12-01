@@ -117,6 +117,10 @@
                                         <td><input type="text" name="pizzaria.razao_social" value="${pizzaria.razao_social}" style="width: 60%; height: 20px; border: 1px solid #5a0805; padding-left: 3px;" /></td>
                                     </tr>
                                     <tr>
+                                        <td style="font-size: 14px; width: 200px; padding-left: 3px;">Nome Fantasia: </td>
+                                        <td><input type="text" name="pizzaria.nome_fantasia" value="${pizzaria.nome_fantasia}" style="width: 60%; height: 20px; border: 1px solid #5a0805; padding-left: 3px;" /></td>
+                                    </tr>
+                                    <tr>
                                         <td style="font-size: 14px; width: 200px; padding-left: 3px;">CNPJ da Pizzaria: </td>
                                         <td>
                                             <input type="text" name="pizzaria.cnpj" value="${pizzaria.cnpj}" id="cnpj" style="width: 40%; height: 20px; border: 1px solid #5a0805; padding-left: 3px;" />

@@ -68,6 +68,10 @@
             //Execute the function when window load
             $(document).ready(function() {
 
+        $("#formularioLogin").submit(function(){
+            alert($("#formularioLogin").serialize());
+        });
+                
                 var docHeight = $(window).height();
                 var footerHeight = $('#footer').height();
                 var footerTop = $('#footer').position().top + footerHeight;
@@ -89,7 +93,7 @@
                         $("#email").val("");
                         $(this).dialog("close");
 //                        $("#recuperaSenhaDialog").dialog("close");
-                    },
+                    }
                 },
                 close: function() {
                     $(this).text("");
