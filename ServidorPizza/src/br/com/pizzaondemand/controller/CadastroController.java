@@ -54,9 +54,9 @@ public class CadastroController {
     @Public
     @Path("/cadastroPizzaria")
     public void cadastroPizzaria() {
-//    	System.out.println("### Entrei em cadastroPizzaria ###");
-//    	System.out.println("Nome da Pizzaria: " + pizzaria.getNomePizzaria());
-//    	System.out.println("Email da Pizzaria: " + pizzaria.getEmailPizzaria());
+   	System.out.println("### Entrei em cadastroPizzaria ###");
+  	System.out.println("Nome da Pizzaria: " + pizzaria.getNomePizzaria());
+   	System.out.println("Email da Pizzaria: " + pizzaria.getEmailPizzaria());
 //    	System.out.println("Senha: " + pizzaria.getSenha());
 //    	System.out.println("CNPJ: " + pizzaria.getCnpj());
 //    	System.out.println("Telefone 1: " + pizzaria.getTelefone1());
