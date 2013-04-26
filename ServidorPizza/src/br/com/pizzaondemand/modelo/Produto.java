@@ -22,7 +22,7 @@ public class Produto implements java.io.Serializable{
     @ManyToOne
     private Pizzaria pizzaria;
 //    @OneToMany(mappedBy="produto")
-//    private List<Pedido> pedidos;
+    private List<Pedido> pedidos;
     @OneToMany(mappedBy="produto", cascade=CascadeType.ALL)
     private List<ProdutoPedido> produtoPedidos;
 
